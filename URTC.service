@@ -1,0 +1,12 @@
+[Unit]
+Description=Ultron Clock
+
+[Service]
+WorkingDirectory=/home/pi/URTC
+Environment="TERM=xterm"
+ExecStart=/home/pi/URTC/new_rtc
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
+
