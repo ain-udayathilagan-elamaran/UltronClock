@@ -3,7 +3,10 @@ import json
 class cameraApi:
     def __init__(self,cameraIPSeries):
         self.cameraIPSeries =cameraIPSeries# f"http://192.168.1.{cameraIP}/"
-        
+
+
+    def Get
+
     
     def Get_UID(self,cameraIP,username,password):
         GetURL=self.cameraIPSeries+str(cameraIP)+f"/cgi-bin/getuid?username={username}&password={password}"
