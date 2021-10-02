@@ -39,6 +39,16 @@ class timE:
             return dfs
 
 
+    def TimeFormatter(self,InTime,INFormat): 
+        try :    
+            Time =  df.strptime(InTime, INFormat)#tm_format="%c"
+            # OUT=Time.strftime(OutTimeFormat)
+            # fulldate = datetime.datetime(tm.year, tm.month, tm.day, tm.hour, tm.minute, tm.second)
+            return Time
+        except Exception as dfs:
+            return dfs
+
+
     def ReadHwClockTime(self): 
         try :    
             fuc=os.popen('sudo hwclock  -r').read().strip().split('.')[0]
@@ -77,6 +87,7 @@ class timE:
 
     def AddSeconds( self,tm,tm_format,seconds_to_add):#,New_Format):
         try:
+            fuc=""
             # New_Format=("%a %b %d %X %Y")
             tm =  df.strptime(tm, tm_format)#tm_format="%c"
             fulldate = datetime.datetime(tm.year, tm.month, tm.day, tm.hour, tm.minute, tm.second)

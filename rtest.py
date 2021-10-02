@@ -1,12 +1,13 @@
 import logging
 import logging.config
-from time import time
+# from time import 
 
 from Camera_API.Cam import cameraApi
 from EaseOfUse.Functionalities import Capability
 from FileHand.File import FileHandleR
 from TimeStone.timestonE import timE
-
+import threading
+import time
 #Class calling
 TimeStonE=timE()
 FileHandler=FileHandleR("/home/pi/UltronClock")
@@ -23,15 +24,15 @@ Url_To_Hit='https://ipinfo.io/ip'
 DT_File_Name="datetime.txt"
 NTP_Server='Asia.pool.ntp.org'
 username="admin"
-password="123456"
+password="12345678"
 global FlagA
 FlagA=0
 
 
 
 
-logging.config.fileConfig('./log.conf')
-logger = logging.getLogger()
+# logging.config.fileConfig('./log.conf')
+# logger = logging.getLogger()
 
 
 # print(CAM.Get_UID(206,username,password))
@@ -98,24 +99,24 @@ def Main():
             if TimeStonE.check_Time2_Greater_Than_Time1(File_t,Ntp_TF,Hw_t,HwSet_TF):# hw CLOCK TIME GREATER 
                 print("16")
                 RpiTimeToSet=TimeStonE.RpiSetFormatChanger(InTime=Hw_t,INFormat=HwSet_TF,Zone="IST") 
-                TimeStonE.Set_Rpi_Time(RpiTimeToSet)
+                print(TimeStonE.Set_Rpi_Time(RpiTimeToSet))
                 print("17")
                 FileTimeToSet=TimeStonE.TimeFormatChanger(InTime=Hw_t,INFormat=HwSet_TF,OutTimeFormat=Ntp_TF)     
-                FileHandler.write_on_file(FileTimeToSet,DT_File_Name,"w")
+                print(FileHandler.write_on_file(FileTimeToSet,DT_File_Name,"w"))
                 print("18")
-                FileHandler.T1_writter(T1=FileTimeToSet,FileName="Change_log.json",permission="w")
+                print(FileHandler.T1_writter(T1=FileTimeToSet,FileName="Change_log.json",permission="w"))
                 FlagA=2
                 #Camera need to set 
             else :# FILE  CLOCK TIME GREATER
                 RpiTimeToSet=TimeStonE.RpiSetFormatChanger(InTime=File_t,INFormat=Ntp_TF,Zone="IST") 
                 print("18")
-                TimeStonE.Set_Rpi_Time(RpiTimeToSet)
+                print(TimeStonE.Set_Rpi_Time(RpiTimeToSet))
                 print("19")
                 HwTimeToSet=TimeStonE.TimeFormatChanger(InTime=File_t,INFormat=Ntp_TF,OutTimeFormat=HwSet_TF)
                 print("20")
-                TimeStonE.Set_HWClock_Time(HwTimeToSet)
+                print(TimeStonE.Set_HWClock_Time(HwTimeToSet))
                 print("21")
-                FileHandler.T1_writter(T1=File_t,FileName="Change_log.json",permission="w")
+                print(FileHandler.T1_writter(T1=File_t,FileName="Change_log.json",permission="w"))
                 print("22")
                 FlagA=2
                 print("23")
@@ -125,7 +126,7 @@ def Main():
             RpiTimeToSet=TimeStonE.RpiSetFormatChanger(InTime=File_t,INFormat=Ntp_TF,Zone="IST") 
             print("24")
             print(RpiTimeToSet)
-            TimeStonE.Set_Rpi_Time(RpiTimeToSet)
+            print(TimeStonE.Set_Rpi_Time(RpiTimeToSet))
             FlagA=2
             print("25 OVER")
 
@@ -134,14 +135,22 @@ def T2_Checker(Ntp_time):
     try:
         # fl=FileHandler.read_from_file(FileName='Change_log.json',permission='r')
         # fl = open('Change_log.json',)
-        From_Time=FileHandler.T1_Reader(To_Find="T1",FileName='Change_log.json',permission='r')
+        print(Ntp_time)
+        # From_Time=FileHandler.T1_Reader(To_Find="T1",FileName='Change_log.json',permission='r')
+        To_Find="T1"
+        FileName="Change_log.json"
+        permission="r"
+        From_Time=FileHandler.T1_Reader(To_Find,FileName,permission)
+        print("From_Time",From_Time,type(From_Time))
+
         File_State,File_t=FileHandler.read_from_file(DT_File_Name,"r")
+        print("File_State,File_t",File_State,File_t)
         # T1_Reader
         # data = json.load(fl)
         # fl.close()
         # To_time=T2
         # T1=(data["T1"])
-        Duration=TimeStonE.Time1_Time2_check_Difference(Time1=From_Time,Time1_format=Ntp_TF,Time2=File_t,Time2_format=Ntp_TF)
+        DuState,Duration=TimeStonE.Time1_Time2_check_Difference(Time1=From_Time,Time1_format=Ntp_TF,Time2=File_t,Time2_format=Ntp_TF)
         # Duration=str(delay_Is)
         msg=TimeStonE.Data_Creater(Ntp_time,Ntp_TF,Duration,From_Time=From_Time,To_time=File_t)
         print("Duration is :"+str(Duration))
@@ -159,33 +168,37 @@ def T2_Checker(Ntp_time):
 
 def Set_Cam_Time(cameraIP,username,password,year,month,day,hour,min,sec):
     Cam_State,Cam_uuid=CAM.Get_UID(cameraIP=cameraIP,username=username,password=password)
+    print(Cam_State,Cam_uuid)
     if Cam_State:
-        CAM.Set_Mannual_Time(cameraIP=cameraIP,year=year,month=month,day=day,hour=hour,min=min,sec=sec,uID=Cam_uuid)
-        CAM.Set_NTP_Time(cameraIP,uID=Cam_uuid)
+        print(CAM.Set_Mannual_Time(cameraIP=cameraIP,year=year,month=month,day=day,hour=hour,min=min,sec=sec,uID=Cam_uuid))
+        print(CAM.Set_NTP_Time(cameraIP,uID=Cam_uuid))
     else :
         print ("Can't Access Cam : "+str(cameraIP))
 
 
 def Internet_came_After(tim1): # need to do 
+    print("In interes sadhasdb ",tim1)
     global FlagA
     while True:
         if FlagA == 2: 
-            time.sleep(10)
+            time.sleep(tim1)
             if Capability.Check_Internet_After_Flag(Url_To_Hit,30):
                 NtP_State,Ntp_t=TimeStonE.Get_Ntp_Time(NTP_Server,4,2)
+                print(NtP_State,Ntp_t)
                 T2_Checker(Ntp_t)
                 FlagA=0
                 break
 
-def Date_Time_Update(Time_To_update):    
+def Date_Time_Update(Time_To_update): 
+    print("In Date_Time_Update sadhasdb ",Time_To_update)   
     while True :
         time.sleep(Time_To_update)
         File_State,File_t=FileHandler.read_from_file(DT_File_Name,"r")
         if File_State:
-            print("Time to update is :",File_t)   
-            Ou=TimeStonE.addSecs(File_t,Ntp_TF,Time_To_update)
-            print("Time to update is :",Ou)   
-            FileHandler.write_on_file(Ou,DT_File_Name,"w")
+            print("Time to file is :",File_t)   
+            TimeState,AddedTime=TimeStonE.AddSeconds(File_t,Ntp_TF,Time_To_update)
+            print("Time to update is :",AddedTime)   
+            print(FileHandler.write_on_file(AddedTime,DT_File_Name,"w"))
         # dd=read_from_file()
         # b = addSecs(dd, 10)
         # if b=="":
@@ -194,27 +207,32 @@ def Date_Time_Update(Time_To_update):
             if Capability.Check_Internet_After_Flag(Url_To_Hit,10):
                 NtP_State,Ntp_t=TimeStonE.Get_Ntp_Time(NTP_Server,4,2)
                 FileHandler.write_on_file(Ntp_t,DT_File_Name,"w")
-            
-            
-# Main()
+File_State,File_t=FileHandler.read_from_file(DT_File_Name,"r")  
+tm=TimeStonE.TimeFormatter(File_t,Ntp_TF)      
+print(tm.year, tm.month, tm.day, tm.hour, tm.minute, tm.second)
+Set_Cam_Time(cameraIP=207,username="admin",password="123456",year=tm.year,month=tm.month,day=tm.day,hour=tm.hour,min=tm.minute,sec=tm.second)          
 
+# # Main()
+# NtP_State,Ntp_t=TimeStonE.Get_Ntp_Time(NTP_Server,4,2)
+# print(NtP_State,Ntp_t)
+# T2_Checker(Ntp_t)
             
-if __name__ == '__main__':
-    try :
-        Current_version = "0.7"
-        program='''
-        Program name        : UltronClock
-        Author              : Udayathilagan
-        Date created        : 21/07/2021
-        Date last modified  : 21/07/2021
-        Python Version      : 3.9.1
-        Program Version     : {}        
-        Email address       : udayathilagan.elamaran@aparinnosys.com'''.format(Current_version)
-        Main()
-        logger.info(program)
-        t1=threading.Thread(target=Internet_came_After,args=(10,))
-        t1.start()
-        t2=threading.Thread(target=Date_Time_Update)
-        t2.start()
-    except Exception as ds:
-        logger.error(ds)
+# if __name__ == '__main__':
+#     try :
+#         Current_version = "0.7"
+#         program='''
+#         Program name        : UltronClock
+#         Author              : Udayathilagan
+#         Date created        : 21/07/2021
+#         Date last modified  : 21/07/2021
+#         Python Version      : 3.9.1
+#         Program Version     : {}        
+#         Email address       : udayathilagan.elamaran@aparinnosys.com'''.format(Current_version)
+#         Main()
+#         print(program)
+#         t1=threading.Thread(target=Internet_came_After,args=(10,))
+#         t1.start()
+#         t2=threading.Thread(target=Date_Time_Update,args=(10,))
+#         t2.start()
+#     except Exception as ds:
+#         print(ds)

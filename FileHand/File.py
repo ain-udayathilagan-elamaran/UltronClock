@@ -24,7 +24,7 @@ class FileHandleR:
             return True
         except Exception as sd:
             return False
-            # logger.error(sd)
+            print(sd)
             # DateTimeSetter(30)
 
 
@@ -41,14 +41,16 @@ class FileHandleR:
             print(df)
             
             
-    def T1_Reader(To_Find,FileName,permission):
+    def T1_Reader(self,To_Find,FileName,permission):
         try:
+            print(To_Find)
             # fl=FileHandler.read_from_file(FileName='Change_log.json',permission='r')
             fl = open(FileName,permission)
             data = json.load(fl)
             fl.close()
             # To_time=T2
             T1=(data[To_Find])
+            print(T1)
             return T1
             # Duration=TimeStonE.Time1_Time2_check_Difference(Time1=T1,Time1_format=Ntp_TF,Time2=T2,Time2_format=Ntp_TF)
             # # Duration=str(delay_Is)
