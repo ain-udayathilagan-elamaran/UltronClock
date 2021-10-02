@@ -15,3 +15,13 @@ class Capability:
             print(d)
             return False
             
+            
+    def Check_Internet_After_Flag(Url_To_Hit,Sleep_Time): #'https://ipinfo.io/ip'
+        try:
+            context = ssl._create_unverified_context()
+            urllib.request.urlopen(Url_To_Hit, context=context)
+            return True
+        except Exception as d:
+            print(d)
+            return False
+            

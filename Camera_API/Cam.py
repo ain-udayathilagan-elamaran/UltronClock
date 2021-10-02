@@ -5,7 +5,7 @@ class cameraApi:
         self.cameraIPSeries =cameraIPSeries# f"http://192.168.1.{cameraIP}/"
 
 
-    def Get
+
 
     
     def Get_UID(self,cameraIP,username,password):
