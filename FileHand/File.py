@@ -36,8 +36,10 @@ class FileHandleR:
             }
             json_ob = json.dumps(change_log, indent = 4)
             with open(FileName, permission) as outfile:
-                outfile.write(json_ob)   
+                outfile.write(json_ob) 
+                return True  
         except Exception as df:
+            return False
             print(df)
             
             

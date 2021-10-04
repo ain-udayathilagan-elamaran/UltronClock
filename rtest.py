@@ -24,10 +24,10 @@ Url_To_Hit='https://ipinfo.io/ip'
 DT_File_Name="datetime.txt"
 NTP_Server='Asia.pool.ntp.org'
 username="admin"
-password="12345678"
+password="123456"
 global FlagA
 FlagA=0
-
+CameraIP=[205,206,207,208]
 
 
 
@@ -86,6 +86,12 @@ def Main():
                 print("9")
                 FileHandler.write_on_file(Ntp_t,DT_File_Name,"w")
                 print("10")
+                tm=TimeStonE.TimeFormatter(Ntp_t,Ntp_TF)
+                for ip in CameraIP:
+                    print(tm.year, tm.month, tm.day, tm.hour, tm.minute,tm.second)
+                    Set_Cam_Time(cameraIP=ip,username=username,password=password,year=tm.year,month=tm.month,day=tm.day,hour=tm.hour,min=tm.minute,sec=tm.second)
+    
+                #Camera need to set 
     else : #No internet Time
         print("11")
         Hw_State,Hw_t=TimeStonE.ReadHwClockTime()
@@ -103,13 +109,21 @@ def Main():
                 print("17")
                 FileTimeToSet=TimeStonE.TimeFormatChanger(InTime=Hw_t,INFormat=HwSet_TF,OutTimeFormat=Ntp_TF)     
                 print(FileHandler.write_on_file(FileTimeToSet,DT_File_Name,"w"))
-                print("18")
+                print("18--",FileTimeToSet)
                 print(FileHandler.T1_writter(T1=FileTimeToSet,FileName="Change_log.json",permission="w"))
                 FlagA=2
                 #Camera need to set 
+                tm=TimeStonE.TimeFormatter(Hw_t,HwSet_TF)
+                print(tm)
+                for ip in CameraIP:
+                    print(ip)
+                    print(tm.year, tm.month, tm.day, tm.hour, tm.minute,tm.second)
+                    Set_Cam_Time(cameraIP=ip,username=username,password=password,year=tm.year,month=tm.month,day=tm.day,hour=tm.hour,min=tm.minute,sec=tm.second)
+    
+                #Camera need to set 
             else :# FILE  CLOCK TIME GREATER
                 RpiTimeToSet=TimeStonE.RpiSetFormatChanger(InTime=File_t,INFormat=Ntp_TF,Zone="IST") 
-                print("18")
+                print("188")
                 print(TimeStonE.Set_Rpi_Time(RpiTimeToSet))
                 print("19")
                 HwTimeToSet=TimeStonE.TimeFormatChanger(InTime=File_t,INFormat=Ntp_TF,OutTimeFormat=HwSet_TF)
@@ -120,6 +134,11 @@ def Main():
                 print("22")
                 FlagA=2
                 print("23")
+                tm=TimeStonE.TimeFormatter(File_t,Ntp_TF)
+                for ip in CameraIP:
+                    print(tm.year, tm.month, tm.day, tm.hour, tm.minute,tm.second)
+                    Set_Cam_Time(cameraIP=ip,username=username,password=password,year=tm.year,month=tm.month,day=tm.day,hour=tm.hour,min=tm.minute,sec=tm.second)
+    
                 #Camera need to set 
         else : #Rtc failure
             print("#Rtc failure")
@@ -129,8 +148,11 @@ def Main():
             print(TimeStonE.Set_Rpi_Time(RpiTimeToSet))
             FlagA=2
             print("25 OVER")
-
-       
+            tm=TimeStonE.TimeFormatter(File_t,Ntp_TF)
+            for ip in CameraIP:
+                print(tm.year, tm.month, tm.day, tm.hour, tm.minute,tm.second)
+                Set_Cam_Time(cameraIP=ip,username=username,password=password,year=tm.year,month=tm.month,day=tm.day,hour=tm.hour,min=tm.minute,sec=tm.second)
+    
 def T2_Checker(Ntp_time):
     try:
         # fl=FileHandler.read_from_file(FileName='Change_log.json',permission='r')
@@ -142,7 +164,6 @@ def T2_Checker(Ntp_time):
         permission="r"
         From_Time=FileHandler.T1_Reader(To_Find,FileName,permission)
         print("From_Time",From_Time,type(From_Time))
-
         File_State,File_t=FileHandler.read_from_file(DT_File_Name,"r")
         print("File_State,File_t",File_State,File_t)
         # T1_Reader
@@ -207,32 +228,34 @@ def Date_Time_Update(Time_To_update):
             if Capability.Check_Internet_After_Flag(Url_To_Hit,10):
                 NtP_State,Ntp_t=TimeStonE.Get_Ntp_Time(NTP_Server,4,2)
                 FileHandler.write_on_file(Ntp_t,DT_File_Name,"w")
-File_State,File_t=FileHandler.read_from_file(DT_File_Name,"r")  
-tm=TimeStonE.TimeFormatter(File_t,Ntp_TF)      
-print(tm.year, tm.month, tm.day, tm.hour, tm.minute, tm.second)
-Set_Cam_Time(cameraIP=207,username="admin",password="123456",year=tm.year,month=tm.month,day=tm.day,hour=tm.hour,min=tm.minute,sec=tm.second)          
+
+
+# File_State,File_t=FileHandler.read_from_file(DT_File_Name,"r")  
+# tm=TimeStonE.TimeFormatter(File_t,Ntp_TF)      
+# print(tm.year, tm.month, tm.day, tm.hour, tm.minute, tm.second)
+# Set_Cam_Time(cameraIP=207,username="admin",password="123456",year=tm.year,month=tm.month,day=tm.day,hour=tm.hour,min=tm.minute,sec=tm.second)          
 
 # # Main()
 # NtP_State,Ntp_t=TimeStonE.Get_Ntp_Time(NTP_Server,4,2)
 # print(NtP_State,Ntp_t)
 # T2_Checker(Ntp_t)
             
-# if __name__ == '__main__':
-#     try :
-#         Current_version = "0.7"
-#         program='''
-#         Program name        : UltronClock
-#         Author              : Udayathilagan
-#         Date created        : 21/07/2021
-#         Date last modified  : 21/07/2021
-#         Python Version      : 3.9.1
-#         Program Version     : {}        
-#         Email address       : udayathilagan.elamaran@aparinnosys.com'''.format(Current_version)
-#         Main()
-#         print(program)
-#         t1=threading.Thread(target=Internet_came_After,args=(10,))
-#         t1.start()
-#         t2=threading.Thread(target=Date_Time_Update,args=(10,))
-#         t2.start()
-#     except Exception as ds:
-#         print(ds)
+if __name__ == '__main__':
+    try :
+        Current_version = "0.7"
+        program='''
+        Program name        : UltronClock
+        Author              : Udayathilagan
+        Date created        : 21/07/2021
+        Date last modified  : 21/07/2021
+        Python Version      : 3.9.1
+        Program Version     : {}        
+        Email address       : udayathilagan.elamaran@aparinnosys.com'''.format(Current_version)
+        Main()
+        print(program)
+        t1=threading.Thread(target=Internet_came_After,args=(10,))
+        t1.start()
+        t2=threading.Thread(target=Date_Time_Update,args=(10,))
+        t2.start()
+    except Exception as ds:
+        print(ds)

@@ -15,7 +15,7 @@ class timE:
         current_Time=df.strptime(Ntp_time,Ntp_TF)
         actual_From_Time=current_Time - Duration
         # Change_log_Creater(Duration=Duration, From_Time=From_Time,To_time=To_time,actual_From_Time=actual_From_Time,Ntp_time=Ntp_time)
-        kc1='{{"Duration":"{}","time_was_wrong_From":"{}","Actual_Date_time_was_From":{},"Actual_Date_time_was_Till":{}}}'.format(Duration,From_Time,To_time,actual_From_Time,Ntp_time)
+        kc1='{{"Duration":"{}","time_was_wrong_From":"{}","Actual_Date_time_was_From":"{}","Actual_Date_time_was_Till":"{}"}}'.format(Duration,From_Time,To_time,actual_From_Time,Ntp_time)
         print(kc1)
     def RpiSetFormatChanger(self,InTime,INFormat,Zone): 
         try :    
