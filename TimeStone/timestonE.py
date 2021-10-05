@@ -11,12 +11,13 @@ class timE:
     def __init__(self):
         pass
     
-    def Data_Creater(self,Ntp_time,Ntp_TF,Duration,From_Time,To_time):
+    def Data_Creater(self,Ntp_time,Ntp_TF,Duration,From_Time,To_time,RTC_State,RTC_Time,Rpi_Time):
         current_Time=df.strptime(Ntp_time,Ntp_TF)
         actual_From_Time=current_Time - Duration
         # Change_log_Creater(Duration=Duration, From_Time=From_Time,To_time=To_time,actual_From_Time=actual_From_Time,Ntp_time=Ntp_time)
-        kc1='{{"Duration":"{}","time_was_wrong_From":"{}","Actual_Date_time_was_From":"{}","Actual_Date_time_was_Till":"{}"}}'.format(Duration,From_Time,To_time,actual_From_Time,Ntp_time)
-        print(kc1)
+        msg='{{"Duration":"{}","time_was_wrong_From":"{}","time_was_wrong_To":"{}","Actual_Date_time_was_From":"{}","Actual_Date_time_was_Till":"{}","RTC_State":"{}","RTC_Time":"{}","Rpi_Time":"{}"}}'.format(Duration,From_Time,To_time,actual_From_Time,Ntp_time,RTC_State,RTC_Time,Rpi_Time)
+        # print(msg)
+        return msg
     def RpiSetFormatChanger(self,InTime,INFormat,Zone): 
         try :    
             Time =  df.strptime(InTime, INFormat)#tm_format="%c"
@@ -51,12 +52,12 @@ class timE:
 
     def ReadHwClockTime(self): 
         try :    
-            fuc=os.popen('sudo hwclock  -r').read().strip().split('.')[0]
-            return True,fuc
+            HData=os.popen('sudo hwclock  -r').read().strip().split('.')[0]
+            RTC_TF="%Y-%m-%d %X"
+            HTime =  df.strptime(HData, RTC_TF)
+            return True,HData
         except Exception as dfs:
             return False,dfs
-
-
             
     def ReadRpiTime(self): 
         try :    
@@ -128,15 +129,18 @@ class timE:
             Time1 =  df.strptime(Time1, Time1_format)
             print(Time1)
             Time2 =  df.strptime(Time2, Time2_format)
-            print(Time2)
-            if Time1 == Time2 :
-                print("Ntp time and Rpi time are same ")
-                return True
+            dif=Time1-Time2
+            seconds = dif.seconds
+            print(seconds)
+            if seconds >50  :
+                print("Time deferent is :"+str(seconds))
+                # print("Ntp time and Rpi time are same ")
+                return False
                 # write_on_file(ntptime)
                 # print(ntp)
             else :
-                print("Time mismatch")
-                return False
+                print("Time deferent is More :"+str(dif))
+                return True
         except Exception as fs:
             print(fs)
 

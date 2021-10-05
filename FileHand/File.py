@@ -28,11 +28,14 @@ class FileHandleR:
             # DateTimeSetter(30)
 
 
-    def T1_writter(self,T1,FileName,permission):
+    def T1_writter(self,T1,RTC_State,RTC_Time,Rpi_Time,FileName,permission):
         try :
             change_log={
             "T1":T1 ,
-            "T2":""
+            "T2":"",
+            "RTC_State":RTC_State,
+            "RTC_Time":RTC_Time,
+            "Rpi_Time":Rpi_Time
             }
             json_ob = json.dumps(change_log, indent = 4)
             with open(FileName, permission) as outfile:
@@ -43,25 +46,19 @@ class FileHandleR:
             print(df)
             
             
-    def T1_Reader(self,To_Find,FileName,permission):
+    def T1_Reader(self,FileName,permission):
         try:
-            print(To_Find)
+            # print(To_Find)
             # fl=FileHandler.read_from_file(FileName='Change_log.json',permission='r')
             fl = open(FileName,permission)
             data = json.load(fl)
             fl.close()
             # To_time=T2
-            T1=(data[To_Find])
-            print(T1)
-            return T1
-            # Duration=TimeStonE.Time1_Time2_check_Difference(Time1=T1,Time1_format=Ntp_TF,Time2=T2,Time2_format=Ntp_TF)
-            # # Duration=str(delay_Is)
-            # print("Duration is :"+str(Duration))
-            # current_Time=df.strptime(Ntp_time,Ntp_TF)
-            # actual_From_Time=current_Time - Duration
-            # Change_log_Creater(Duration=Duration, From_Time=From_Time,To_time=To_time,actual_From_Time=actual_From_Time,Ntp_time=Ntp_time)
-            # logger.warning("Date time was wrong From :{} To :{}".format(From_Time,To_time))
-            # logger.warning("Actual time was     From :{} To :{}".format(actual_From_Time,Ntp_time))
+            T1=data["T1"]
+            RTC_State=data["RTC_State"]
+            RTC_Time=data["RTC_Time"]
+            Rpi_Time=data["Rpi_Time"]
+            return T1,RTC_State,RTC_Time,Rpi_Time
         except Exception as d:
             print(d)
             return False

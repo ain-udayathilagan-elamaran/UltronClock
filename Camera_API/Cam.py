@@ -8,7 +8,7 @@ class cameraApi:
         try:    
             
             GetURL=self.cameraIPSeries+str(cameraIP)+f"/cgi-bin/getuid?username={username}&password={password}"
-            print(GetURL)
+            # print(GetURL)
             response = requests.get(GetURL)#, data=None, headers=None)
             if response.status_code == 200 :
                 UID=response.text.split()[3].split(">")[1].split("<")[0]
@@ -38,7 +38,7 @@ class cameraApi:
         try:          
         # http://192.168.1.206/cgi-bin/time?update_method=MANUAL&year=2017&month=11&day=30&hour=8&min=0&sec=0&uid=ffa72511
             GetURL=self.cameraIPSeries+str(cameraIP)+f"/cgi-bin/time?update_method=MANUAL&year={year}&month={month}&day={day}&hour={hour}&min={min}&sec={sec}&uid={uID}"
-            print(GetURL)
+            # print(GetURL)
             response = requests.get(GetURL)#, data=None, headers=None)
             if response.status_code == 200 :
                 # UID=response.text.split()[3].split(">")[1].split("<")[0]

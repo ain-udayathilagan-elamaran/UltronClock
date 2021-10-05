@@ -1,0 +1,126 @@
+2021-10-05 14:25:58 INFO - root.<module> - 
+        Program name        : UltronClock
+        Author              : Udayathilagan
+        Date created        : 21/07/2021
+        Date last modified  : 21/07/2021
+        Python Version      : 3.9.1
+        Program Version     : 0.7        
+        Email address       : udayathilagan.elamaran@aparinnosys.com
+2021-10-05 14:25:58 INFO - root.<module> - name 'json' is not defined
+2021-10-05 14:26:13 INFO - root.<module> - 
+        Program name        : UltronClock
+        Author              : Udayathilagan
+        Date created        : 21/07/2021
+        Date last modified  : 21/07/2021
+        Python Version      : 3.9.1
+        Program Version     : 0.7        
+        Email address       : udayathilagan.elamaran@aparinnosys.com
+2021-10-05 14:26:14 INFO - root.Main - Internet is Here
+2021-10-05 14:26:19 INFO - root.Main - Got Ntp Time
+2021-10-05 14:26:19 INFO - root.Main - Rpi time = Ntp time
+2021-10-05 14:26:19 INFO - root.Main - 5
+2021-10-05 15:18:17 INFO - root.<module> - 
+        Program name        : UltronClock
+        Author              : Udayathilagan
+        Date created        : 21/07/2021
+        Date last modified  : 21/07/2021
+        Python Version      : 3.9.1
+        Program Version     : 0.7        
+        Email address       : udayathilagan.elamaran@aparinnosys.com
+2021-10-05 15:18:37 INFO - root.<module> - [Errno 5] Input/output error
+2021-10-05 15:18:54 INFO - root.<module> - 
+        Program name        : UltronClock
+        Author              : Udayathilagan
+        Date created        : 21/07/2021
+        Date last modified  : 21/07/2021
+        Python Version      : 3.9.1
+        Program Version     : 0.7        
+        Email address       : udayathilagan.elamaran@aparinnosys.com
+2021-10-05 15:19:14 INFO - root.Main - No internet Time
+2021-10-05 15:19:14 INFO - root.Main - RTC_State
+2021-10-05 15:19:14 INFO - root.Main - False
+2021-10-05 15:19:14 INFO - root.Main - 12
+2021-10-05 15:19:14 INFO - root.Main - 13
+2021-10-05 15:19:14 INFO - root.Main - 14
+2021-10-05 15:19:14 INFO - root.Main - #Rtc failure
+2021-10-05 15:19:14 INFO - root.Main - 24
+2021-10-05 15:19:14 INFO - root.Main - Tue Oct 05 14:26:49 IST 2021
+2021-10-05 14:26:49 INFO - root.Main - True
+2021-10-05 14:26:49 INFO - root.Main - 25 OVER
+2021-10-05 14:26:49 INFO - root.Main - True
+2021-10-05 14:26:49 INFO - root.Main - Camera IP is :205
+2021-10-05 14:26:49 INFO - root.Set_Cam_Time - (True, '<?xml version="1.0" encoding="UTF-8"?>\r\n<time timezone="GMT+05:30" update_method="MANUAL" ntpaddr="asia.pool.ntp.org" port="123" update_period="60" current_time="2021-10-05 14:26:49"/>')
+2021-10-05 14:26:51 INFO - root.Set_Cam_Time - (True, '<?xml version="1.0" encoding="UTF-8"?>\r\n<time timezone="GMT+05:30" update_method="NTP" ntpaddr="asia.pool.ntp.org" port="123" update_period="60" current_time="2021-10-05 14:26:50"/>')
+2021-10-05 14:26:51 INFO - root.Main - Camera IP is :206
+2021-10-05 14:26:51 INFO - root.Set_Cam_Time - (True, '<?xml version="1.0" encoding="UTF-8"?>\r\n<time timezone="GMT+05:30" update_method="MANUAL" ntpaddr="asia.pool.ntp.org" port="123" update_period="60" current_time="2021-10-05 14:26:49"/>')
+2021-10-05 14:26:51 INFO - root.Set_Cam_Time - (True, '<?xml version="1.0" encoding="UTF-8"?>\r\n<time timezone="GMT+05:30" update_method="NTP" ntpaddr="asia.pool.ntp.org" port="123" update_period="60" current_time="2021-10-05 14:26:49"/>')
+2021-10-05 14:26:51 INFO - root.Main - Camera IP is :207
+2021-10-05 14:26:51 INFO - root.Set_Cam_Time - (True, '<?xml version="1.0" encoding="UTF-8"?>\r\n<time timezone="GMT+05:30" update_method="MANUAL" ntpaddr="asia.pool.ntp.org" port="123" update_period="3600" current_time="2021-10-05 14:26:49"/>')
+2021-10-05 14:26:51 INFO - root.Set_Cam_Time - (True, '<?xml version="1.0" encoding="UTF-8"?>\r\n<time timezone="GMT+05:30" update_method="NTP" ntpaddr="asia.pool.ntp.org" port="123" update_period="3600" current_time="2021-10-05 14:26:49"/>')
+2021-10-05 14:26:51 INFO - root.Main - Camera IP is :208
+2021-10-05 14:26:51 INFO - root.Set_Cam_Time - (True, '<?xml version="1.0" encoding="UTF-8"?>\r\n<time timezone="GMT+05:30" update_method="MANUAL" ntpaddr="asia.pool.ntp.org" port="123" current_time="2021-10-05 14:26:49"/>')
+2021-10-05 14:26:51 INFO - root.Set_Cam_Time - (True, '<?xml version="1.0" encoding="UTF-8"?>\r\n<time timezone="GMT+05:30" update_method="NTP" ntpaddr="asia.pool.ntp.org" port="123" current_time="2021-10-05 14:26:49"/>')
+2021-10-05 14:26:51 INFO - root.Date_Time_Update - In Date_Time_Update sadhasdb 
+2021-10-05 14:26:51 INFO - root.Date_Time_Update - 10
+2021-10-05 14:29:26 INFO - root.<module> - 
+        Program name        : UltronClock
+        Author              : Udayathilagan
+        Date created        : 21/07/2021
+        Date last modified  : 21/07/2021
+        Python Version      : 3.9.1
+        Program Version     : 0.7        
+        Email address       : udayathilagan.elamaran@aparinnosys.com
+2021-10-05 14:29:46 INFO - root.Main - No internet Time
+2021-10-05 14:29:46 INFO - root.Main - RTC_State
+2021-10-05 14:29:46 INFO - root.Main - False
+2021-10-05 14:29:46 INFO - root.Main - 12
+2021-10-05 14:29:46 INFO - root.Main - 13
+2021-10-05 14:29:46 INFO - root.Main - 14
+2021-10-05 14:29:46 INFO - root.Main - #Rtc failure
+2021-10-05 14:29:46 INFO - root.Main - 24
+2021-10-05 14:29:46 INFO - root.Main - Tue Oct 05 14:26:49 IST 2021
+2021-10-05 14:26:49 INFO - root.Main - True
+2021-10-05 14:26:49 INFO - root.Main - 25 OVER
+2021-10-05 14:26:49 INFO - root.Main - True
+2021-10-05 14:26:49 INFO - root.Main - Camera IP is :205
+2021-10-05 14:26:49 INFO - root.Set_Cam_Time - (True, '<?xml version="1.0" encoding="UTF-8"?>\r\n<time timezone="GMT+05:30" update_method="MANUAL" ntpaddr="asia.pool.ntp.org" port="123" update_period="60" current_time="2021-10-05 14:26:49"/>')
+2021-10-05 14:26:50 INFO - root.Set_Cam_Time - (True, '<?xml version="1.0" encoding="UTF-8"?>\r\n<time timezone="GMT+05:30" update_method="NTP" ntpaddr="asia.pool.ntp.org" port="123" update_period="60" current_time="2021-10-05 14:26:49"/>')
+2021-10-05 14:26:50 INFO - root.Main - Camera IP is :206
+2021-10-05 14:26:50 INFO - root.Set_Cam_Time - (True, '<?xml version="1.0" encoding="UTF-8"?>\r\n<time timezone="GMT+05:30" update_method="MANUAL" ntpaddr="asia.pool.ntp.org" port="123" update_period="60" current_time="2021-10-05 14:26:49"/>')
+2021-10-05 14:26:50 INFO - root.Set_Cam_Time - (True, '<?xml version="1.0" encoding="UTF-8"?>\r\n<time timezone="GMT+05:30" update_method="NTP" ntpaddr="asia.pool.ntp.org" port="123" update_period="60" current_time="2021-10-05 14:26:49"/>')
+2021-10-05 14:26:50 INFO - root.Main - Camera IP is :207
+2021-10-05 14:26:50 INFO - root.Set_Cam_Time - (True, '<?xml version="1.0" encoding="UTF-8"?>\r\n<time timezone="GMT+05:30" update_method="MANUAL" ntpaddr="asia.pool.ntp.org" port="123" update_period="3600" current_time="2021-10-05 14:26:49"/>')
+2021-10-05 14:26:50 INFO - root.Set_Cam_Time - (True, '<?xml version="1.0" encoding="UTF-8"?>\r\n<time timezone="GMT+05:30" update_method="NTP" ntpaddr="asia.pool.ntp.org" port="123" update_period="3600" current_time="2021-10-05 14:26:49"/>')
+2021-10-05 14:26:50 INFO - root.Main - Camera IP is :208
+2021-10-05 14:26:51 INFO - root.Set_Cam_Time - (True, '<?xml version="1.0" encoding="UTF-8"?>\r\n<time timezone="GMT+05:30" update_method="MANUAL" ntpaddr="asia.pool.ntp.org" port="123" current_time="2021-10-05 14:26:49"/>')
+2021-10-05 14:26:51 INFO - root.Set_Cam_Time - (True, '<?xml version="1.0" encoding="UTF-8"?>\r\n<time timezone="GMT+05:30" update_method="NTP" ntpaddr="asia.pool.ntp.org" port="123" current_time="2021-10-05 14:26:49"/>')
+2021-10-05 14:26:51 INFO - root.Date_Time_Update - In Date_Time_Update sadhasdb 
+2021-10-05 14:26:51 INFO - root.Date_Time_Update - 10
+2021-10-05 14:45:23 INFO - root.Main - Internet is Here
+2021-10-05 14:45:23 INFO - root.Main - Ntp time is Not equal to Rpi time
+2021-10-05 15:58:42 INFO - root.Main - Camera IP is :205
+2021-10-05 15:58:43 INFO - root.Main - Camera IP is :206
+2021-10-05 15:58:43 INFO - root.Main - Camera IP is :207
+2021-10-05 15:58:43 INFO - root.Main - Camera IP is :208
+2021-10-05 16:00:39 INFO - root.Main - Internet is Here
+2021-10-05 16:00:45 INFO - root.Main - Rpi time is equal Ntp time
+2019-02-14 15:43:55 INFO - root.Main - No internet Time
+2019-02-14 15:43:55 INFO - root.Main - RTC_State is False
+2019-02-14 15:43:55 INFO - root.Main - Rtc failure
+2021-10-05 16:08:46 INFO - root.Main - Camera IP is :205
+2021-10-05 16:08:47 INFO - root.Main - Camera IP is :206
+2021-10-05 16:08:47 INFO - root.Main - Camera IP is :207
+2021-10-05 16:08:47 INFO - root.Main - Camera IP is :208
+2021-10-05 16:12:56 INFO - root.Internet_came_After - True
+2021-10-05 16:12:56 INFO - root.Internet_came_After - Tue Oct  5 16:23:29 2021
+2021-10-05 16:12:56 INFO - root.T2_Checker - Duration is :0:04:00
+2021-10-05 16:12:56 INFO - root.T2_Checker - {"Duration":"0:04:00","time_was_wrong_From":"Tue Oct  5 16:08:46 2021","time_was_wrong_To":"Tue Oct  5 16:12:46 2021","Actual_Date_time_was_From":"2021-10-05 16:19:29","Actual_Date_time_was_Till":"Tue Oct  5 16:23:29 2021","RTC_State":"False","RTC_Time":"NA","Rpi_Time":"Thu 14 Feb 15:43:55 IST 2019"}
+2000-01-01 05:31:47 INFO - root.Main - No internet Time
+2000-01-01 05:31:48 INFO - root.Main - RTC_State is True
+2000-01-01 05:31:48 INFO - root.Main - RTC is Working
+2000-01-01 05:31:48 INFO - root.Main - File Time is greater than RTC Time
+2021-10-05 16:17:07 INFO - root.Main - FileHandler.T1_writter
+2021-10-05 16:17:07 INFO - root.Main - Camera IP is :205
+2021-10-05 16:17:10 INFO - root.Main - Camera IP is :206
+2021-10-05 16:17:10 INFO - root.Main - Camera IP is :207
+2021-10-05 16:17:10 INFO - root.Main - Camera IP is :208
