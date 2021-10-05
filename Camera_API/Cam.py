@@ -14,7 +14,7 @@ class cameraApi:
                 UID=response.text.split()[3].split(">")[1].split("<")[0]
                 return True,UID
             else :
-                print("Status Code: %s" % response.status_code)
+                # print("Status Code: %s" % response.status_code)
                 return False,response.text
         except Exception as d:
             print(d)
@@ -29,7 +29,7 @@ class cameraApi:
                 Time=(response.text.split("=")[8].replace('"',"").split()[1].split("/")[0].strip())
                 return True,Date,Time
             else :
-                print("Status Code: %s" % response.status_code)
+                # print("Status Code: %s" % response.status_code)
                 return False,response.text
         except Exception as d:
             return False,d
@@ -44,7 +44,7 @@ class cameraApi:
                 # UID=response.text.split()[3].split(">")[1].split("<")[0]
                 return True,response.text
             else :
-                print("Status Code: %s" % response.status_code)
+                # print("Status Code: %s" % response.status_code)
                 return False,response.text
         except Exception as d:
             return False,d
@@ -53,14 +53,14 @@ class cameraApi:
         try:
             # http://192.168.1.206/cgi-bin/time?update_method=ntp&ntpaddr=asia.pool.ntp.orgport=123&uid=fd2b6673
             GetURL=self.cameraIPSeries+str(cameraIP)+f"/cgi-bin/time?update_method=NTP&ntpaddr=asia.pool.ntp.org&port=123&uid={uID}"
-            print(GetURL)
+            # print(GetURL)
             response = requests.get(GetURL, data=None, headers=None)
-            print(response)
+            # print(response)
             if response.status_code == 200 :
                 # UID=response.text.split()[3].split(">")[1].split("<")[0]
                 return True,response.text
             else :
-                print("Status Code: %s" % response.status_code)
+                # print("Status Code: %s" % response.status_code)
                 return True,response.text
         except Exception as d:
             return False,d

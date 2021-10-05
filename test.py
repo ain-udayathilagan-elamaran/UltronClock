@@ -3,7 +3,7 @@
 # from EaseOfUse.Functionalities import Capability
 from Mqtt_Module.mqtt import mqtt_mod
 from Data_File import Details
-username_mqtt=Details["username_mqtt"]
+username_mqtt=Details["Rpi_TF"]
 password_mqtt=Details["password_mqtt"]
 mqtt_broker=Details["mqtt_broker"]
 mqtt_port=Details["mqtt_port"]
@@ -12,18 +12,11 @@ Publish_Topic=Details["Publish_Topic"]
 MqTT=mqtt_mod(username_mqtt,password_mqtt,mqtt_broker,mqtt_port,Publish_Topic)
 # import json
 Message="test1"
-co_data=MqTT.MQTT_Connect()
-print(co_data)
-if co_data[0]:
-    print ("Connected")
-    Message=input("enter the data")
-    pub=MqTT.Publish_Data(co_data[1],Message)
-    if pub[0]:
-        print("Publish_Topic")
-    else :
-        print(pub[1])
-else :
-    print(co_data[1])
+MqTT_State,client=MqTT.MQTT_Connect()
+print(MqTT_State,client)
+if MqTT_State:
+    print(Publish_Topic)
+    print(MqTT.Publish_Data(client,Message))
  
 # # Opening JSON file
 # f = open('Config.json',)

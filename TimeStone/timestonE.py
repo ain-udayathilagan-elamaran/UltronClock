@@ -1,7 +1,6 @@
 import os
 import datetime
 from datetime import datetime as df
-import time
 import ntplib
 import time
 from time import ctime
@@ -16,7 +15,6 @@ class timE:
         actual_From_Time=current_Time - Duration
         # Change_log_Creater(Duration=Duration, From_Time=From_Time,To_time=To_time,actual_From_Time=actual_From_Time,Ntp_time=Ntp_time)
         msg='{{"Duration":"{}","time_was_wrong_From":"{}","time_was_wrong_To":"{}","Actual_Date_time_was_From":"{}","Actual_Date_time_was_Till":"{}","RTC_State":"{}","RTC_Time":"{}","Rpi_Time":"{}"}}'.format(Duration,From_Time,To_time,actual_From_Time,Ntp_time,RTC_State,RTC_Time,Rpi_Time)
-        # print(msg)
         return msg
     def RpiSetFormatChanger(self,InTime,INFormat,Zone): 
         try :    
@@ -103,21 +101,21 @@ class timE:
     def Ntp_And_Local_Time_Check(self,RpiTime,Time_format):
         try:
             RpiTime =  df.strptime(RpiTime, Time_format)
-            print(RpiTime)
+            # print(RpiTime)
             client = ntplib.NTPClient()
             response = client.request('Asia.pool.ntp.org', version=4)
             ntptime=str(ctime(response.tx_time))
             NtpTime=df.strptime(ntptime,Time_format)
-            print(NtpTime)
+            # print(NtpTime)
             if RpiTime == NtpTime :
                 print("Ntp time and Rpi time are same ")
                 # write_on_file(ntptime)
                 # print(ntp)
             else :
                 print("Time mismatch on Rpi")
-                print("Time on Rpi: "+str(RpiTime))
-                print("Time on NTP: "+str(NtpTime))
-                #os.system("sudo date -s '"+ntptime+"'")
+                # print("Time on Rpi: "+str(RpiTime))
+                # print("Time on NTP: "+str(NtpTime))
+                # #os.system("sudo date -s '"+ntptime+"'")
                 #write_on_file(ntptime) # Changed on  27/07/2021
         except Exception as fs:
             print(fs)
@@ -127,19 +125,17 @@ class timE:
     def Time1_Time2_check_equivalent(self,Time1,Time1_format,Time2,Time2_format):
         try:
             Time1 =  df.strptime(Time1, Time1_format)
-            print(Time1)
             Time2 =  df.strptime(Time2, Time2_format)
             dif=Time1-Time2
             seconds = dif.seconds
-            print(seconds)
             if seconds >50  :
-                print("Time deferent is :"+str(seconds))
+                # print("Time deferent is :"+str(seconds))
                 # print("Ntp time and Rpi time are same ")
                 return False
                 # write_on_file(ntptime)
                 # print(ntp)
             else :
-                print("Time deferent is More :"+str(dif))
+                # print("Time deferent is More :"+str(dif))
                 return True
         except Exception as fs:
             print(fs)
@@ -147,19 +143,10 @@ class timE:
     def check_Time2_Greater_Than_Time1(self,Time1,Time1_format,Time2,Time2_format):
         try:
             Time1 =  df.strptime(Time1, Time1_format)
-            print(Time1)
             Time2 =  df.strptime(Time2, Time2_format)
-            print(Time2)
             if  Time2 > Time1 :
-                print("Time2 is greater")
                 return True
-            # elif  Time2 > Time1 :
-            #     print("Time2 is greater")
-
-            #     # write_on_file(ntptime)
-            #     # print(ntp)
             else :
-                print("Time mismatch")
                 return False
                 
         except Exception as fs:
@@ -171,9 +158,7 @@ class timE:
     def Time1_Time2_check_Difference(self,Time1,Time1_format,Time2,Time2_format):
         try:
             Time1 =  df.strptime(Time1, Time1_format)
-            print(Time1)
             Time2 =  df.strptime(Time2, Time2_format)
-            print(Time2)
             duration=Time2 -Time1 
             return True,duration
         except Exception as fs:

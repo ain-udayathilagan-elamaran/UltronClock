@@ -18,5 +18,5 @@ Details={
 "password_mqtt":"7WDk9Xi7ICbVzDIAo71F",
 "mqtt_broker":"mqtt.innoculate.in",
 "mqtt_port":1883,
-"Publish_Topic":"AI/MAA/UT/test1"
+"Publish_Topic":"AI/MAA/UT/CLOCK/"
 }
