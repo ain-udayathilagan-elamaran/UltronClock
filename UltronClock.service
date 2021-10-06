@@ -2,9 +2,9 @@
 Description=Ultron Clock
 
 [Service]
-WorkingDirectory=/home/pi/URTC
+WorkingDirectory=/home/pi/UltronClock
 Environment="TERM=xterm"
-ExecStart=/home/pi/URTC/new_rtc
+ExecStart=/home/pi/UltronClock/UltronClock
 Restart=on-failure
 
 [Install]
