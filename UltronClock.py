@@ -90,6 +90,7 @@ def Main():
                 FlagA=2
                 tm=TimeStonE.TimeFormatter(RTC_Time,RTC_TF)
                 if ConfigData["AparCamera"]:    
+                    time.sleep(ConfigData["CameraBootTime"])
                     for ip in ConfigData["CameraIP"]:
                         logger.info("Camera IP is :"+str(ip))
                         Set_Cam_Time(cameraIP=ip,username=username,password=password,year=tm.year,month=tm.month,day=tm.day,hour=tm.hour,min=tm.minute,sec=tm.second)
@@ -101,10 +102,11 @@ def Main():
                 HwTimeToSet=TimeStonE.TimeFormatChanger(InTime=File_t,INFormat=Ntp_TF,OutTimeFormat=RTC_TF)
                 TimeStonE.Set_HWClock_Time(HwTimeToSet)
                 logger.info("FileHandler.T1_writter")
-                FileHandler.T1_writter(T1=File_t,RTC_State=RTC_State,RTC_Time=Rpi_Time,Rpi_Time=Rpi_Time,FileName=Change_File_Name,permission="w")
+                FileHandler.T1_writter(T1=File_t,RTC_State=RTC_State,RTC_Time=RTC_Time,Rpi_Time=Rpi_Time,FileName=Change_File_Name,permission="w")
                 FlagA=2
                 tm=TimeStonE.TimeFormatter(File_t,Ntp_TF)
                 if ConfigData["AparCamera"]:    
+                    time.sleep(ConfigData["CameraBootTime"])
                     for ip in ConfigData["CameraIP"]:
                         logger.info("Camera IP is :"+str(ip))
                         Set_Cam_Time(cameraIP=ip,username=username,password=password,year=tm.year,month=tm.month,day=tm.day,hour=tm.hour,min=tm.minute,sec=tm.second)
@@ -115,7 +117,8 @@ def Main():
             FlagA=2
             FileHandler.T1_writter(T1=File_t,RTC_State=RTC_State,RTC_Time="NA",Rpi_Time=Rpi_Time,FileName=Change_File_Name,permission="w")
             tm=TimeStonE.TimeFormatter(File_t,Ntp_TF)
-            if ConfigData["AparCamera"]:    
+            if ConfigData["AparCamera"]:  
+                time.sleep(ConfigData["CameraBootTime"])  
                 for ip in ConfigData["CameraIP"]:
                     logger.info("Camera IP is :"+str(ip))
                     Set_Cam_Time(cameraIP=ip,username=username,password=password,year=tm.year,month=tm.month,day=tm.day,hour=tm.hour,min=tm.minute,sec=tm.second)
@@ -125,17 +128,54 @@ def T2_Checker(Ntp_time,EdgeID):
         From_Time,RTC_State,RTC_Time,Rpi_Time=FileHandler.T1_Reader(Change_File_Name,"r")
         File_State,File_t=FileHandler.read_from_file(DT_File_Name,"r")
         DuState,Duration=TimeStonE.Time1_Time2_check_Difference(Time1=From_Time,Time1_format=Ntp_TF,Time2=File_t,Time2_format=Ntp_TF)
-        msg=TimeStonE.Data_Creater(Ntp_time=Ntp_time,Ntp_TF=Ntp_TF,Duration=Duration,From_Time=From_Time,To_time=File_t,RTC_State=RTC_State,RTC_Time=RTC_Time,Rpi_Time=Rpi_Time)
+        EdgeId=Capability.Get_Edge_Id() # added edge id to pub
+        msg=TimeStonE.Data_Creater(EdgeId=EdgeId,Ntp_time=Ntp_time,Ntp_TF=Ntp_TF,Duration=Duration,From_Time=From_Time,To_time=File_t,RTC_State=RTC_State,RTC_Time=RTC_Time,Rpi_Time=Rpi_Time)
         logger.info("Duration is :"+str(Duration))
         time.sleep(2)
         MqTT_State,client=MqTT.MQTT_Connect()
         if MqTT_State:
             MqTT.Publish_Data(client,EdgeID,Message=msg)
-        logger.info(str(msg))
+        else :
+            logger.info("MqTT_State is :"+str(MqTT_State))            
+        logger.info("Message To Sent:"+str(msg))
     except Exception as d:
         logger.error(d)
 
+# def store_loc(x):
+#     try:
+#         data=json.load(open("data.json"))
+#         data['storage'].append(x)
+#         with open('DataToSent.json', 'w') as outfile:
+#             json.dump(data, outfile,indent=2)
+#         outfile.close()
+#     except Exception as e:
+#         logging.error(e)
+
+
+# def forward_del(EdgeID):
+#     while True:
+#         try:
+#             sn=json.load(open("DataToSent.json"))
+#             if (len(sn["storage"])) != 0:    
+#                 if Capability.Check_Internet(Url_To_Hit):
+#                     logger.info("Internet is Here")
+#                     k=0    
+#                     for i in sn["storage"]:
+#                         MqTT_State,client=MqTT.MQTT_Connect()
+#                         if MqTT_State:
+#                             MqTT.Publish_Data(client,EdgeID,Message=i)
+#                             del sn["storage"][k] 
+#                             k=k+1
+#                     with open('data.json', 'w') as outfile:
+#                         json.dump(sn, outfile,indent=2)
+#                         outfile.close()
+#         except Exception as ip:
+#             logging.error(ip)
+
+
+
 def Set_Cam_Time(cameraIP,username,password,year,month,day,hour,min,sec):
+    
     Cam_State,Cam_uuid=CAM.Get_UID(cameraIP=cameraIP,username=username,password=password)
     if Cam_State:
         CAM.Set_Mannual_Time(cameraIP=cameraIP,year=year,month=month,day=day,hour=hour,min=min,sec=sec,uID=Cam_uuid)
@@ -143,6 +183,14 @@ def Set_Cam_Time(cameraIP,username,password,year,month,day,hour,min,sec):
     else :
         logger.info("Can't Access Cam : "+str(cameraIP))
 
+def After_Set(Ntp_t,Ntp_TF,RTC_State):
+    RpiTimeToSet=TimeStonE.RpiSetFormatChanger(InTime=Ntp_t,INFormat=Ntp_TF,Zone="IST") 
+    logger.info("After Internetcame setting time")
+    TimeStonE.Set_Rpi_Time(RpiTimeToSet)
+    FileHandler.write_on_file(Ntp_t,DT_File_Name,"w")
+    HwTimeToSet=TimeStonE.TimeFormatChanger(InTime=Ntp_t,INFormat=Ntp_TF,OutTimeFormat=RTC_TF)
+    if RTC_State:    
+        TimeStonE.Set_HWClock_Time(HwTimeToSet)
 
 def Internet_came_After(tim1): # need to do 
     global FlagA
@@ -155,6 +203,9 @@ def Internet_came_After(tim1): # need to do
                 logger.info(str(Ntp_t))
                 EdgeID=Capability.Get_Edge_Id()
                 T2_Checker(Ntp_t,EdgeID)
+                RTC_State,RTC_Time=TimeStonE.ReadHwClockTime()
+                After_Set(Ntp_t,Ntp_TF,RTC_State)
+                #
                 FlagA=0
                 break
 
@@ -172,12 +223,12 @@ def Date_Time_Update(Time_To_update):
 
 if __name__ == '__main__':
     try :
-        Current_version = "1.1"
+        Current_version = "1.3"
         program='''
         Program name        : UltronClock
         Author              : Udayathilagan
         Date created        : 21/07/2021
-        Date last modified  : 05/10/2021
+        Date last modified  : 11/10/2021    
         Python Version      : 3.9.1
         Program Version     : {}        
         Email address       : udayathilagan.elamaran@aparinnosys.com'''.format(Current_version)
@@ -191,3 +242,6 @@ if __name__ == '__main__':
         t2.start()
     except Exception as ds:
         logger.error(ds)
+
+
+
