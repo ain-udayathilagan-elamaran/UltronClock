@@ -23,11 +23,13 @@ class cameraApi:
     def Get_Time(self,cameraIP,uID):
         try :  
             GetURL=self.cameraIPSeries+str(cameraIP)+f"/cgi-bin/time?uid={uID}"
+            
+            
             response = requests.get(GetURL)#, data=None, headers=None)
             if response.status_code == 200 :
                 Date=(response.text.split("=")[8].replace('"',"").split()[0].strip())
                 Time=(response.text.split("=")[8].replace('"',"").split()[1].split("/")[0].strip())
-                return True,Date,Time
+                return True,Date+"T"+Time
             else :
                 # print("Status Code: %s" % response.status_code)
                 return False,response.text

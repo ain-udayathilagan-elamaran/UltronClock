@@ -28,14 +28,17 @@ class FileHandleR:
             # DateTimeSetter(30)
 
 
-    def T1_writter(self,T1,RTC_State,RTC_Time,Rpi_Time,FileName,permission):
+    def T1_writter(self,T1,RTC_State,RTC_Time,Rpi_Time,Camera_Time,FileName,permission):
         try :
             change_log={
             "T1":T1 ,
             "T2":"",
             "RTC_State":RTC_State,
             "RTC_Time":RTC_Time,
-            "Rpi_Time":Rpi_Time
+            "Rpi_Time":Rpi_Time,
+            "Camera_Time":Camera_Time
+            
+            
             }
             json_ob = json.dumps(change_log, indent = 4)
             with open(FileName, permission) as outfile:
@@ -58,7 +61,9 @@ class FileHandleR:
             RTC_State=data["RTC_State"]
             RTC_Time=data["RTC_Time"]
             Rpi_Time=data["Rpi_Time"]
-            return T1,RTC_State,RTC_Time,Rpi_Time
+            Camera_Time=data["Camera_Time"]
+            
+            return T1,RTC_State,RTC_Time,Rpi_Time,Camera_Time
         except Exception as d:
             print(d)
             return False

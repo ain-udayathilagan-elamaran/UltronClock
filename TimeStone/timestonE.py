@@ -10,11 +10,11 @@ class timE:
     def __init__(self):
         pass
     
-    def Data_Creater(self,EdgeId,Ntp_time,Ntp_TF,Duration,From_Time,To_time,RTC_State,RTC_Time,Rpi_Time):
+    def Data_Creater(self,EdgeId,Ntp_time,Ntp_TF,Duration,From_Time,To_time,RTC_State,RTC_Time,Rpi_Time,Camera_Time):
         current_Time=df.strptime(Ntp_time,Ntp_TF)
         actual_From_Time=current_Time - Duration
         # Change_log_Creater(Duration=Duration, From_Time=From_Time,To_time=To_time,actual_From_Time=actual_From_Time,Ntp_time=Ntp_time)
-        msg='{{"Edge_Id":"{}","Duration":"{}","Time_Was_Wrong_From":"{}","Time_Was_Wrong_To":"{}","Actual_Date_time_was_From":"{}","Actual_Date_time_was_Till":"{}","RTC_State":"{}","RTC_Time":"{}","Rpi_Time":"{}"}}'.format(EdgeId,Duration,From_Time,To_time,actual_From_Time,Ntp_time,RTC_State,RTC_Time,Rpi_Time)
+        msg='{{"Edge_Id":"{}","Duration":"{}","Time_Was_Wrong_From":"{}","Time_Was_Wrong_To":"{}","Actual_Date_time_was_From":"{}","Actual_Date_time_was_Till":"{}","RTC_State":"{}","RTC_Time":"{}","Rpi_Time":"{}","Camera_Time":{}}}'.format(EdgeId,Duration,From_Time,To_time,actual_From_Time,Ntp_time,RTC_State,RTC_Time,Rpi_Time,Camera_Time)
         return msg
     def RpiSetFormatChanger(self,InTime,INFormat,Zone): 
         try :    
@@ -127,7 +127,7 @@ class timE:
             Time1 =  df.strptime(Time1, Time1_format)
             Time2 =  df.strptime(Time2, Time2_format)
             dif=Time1-Time2
-            seconds = dif.seconds
+            seconds = round(dif.total_seconds())
             if seconds >50  :
                 # print("Time deferent is :"+str(seconds))
                 # print("Ntp time and Rpi time are same ")
@@ -144,11 +144,12 @@ class timE:
         try:
             Time1 =  df.strptime(Time1, Time1_format)
             Time2 =  df.strptime(Time2, Time2_format)
-            if  Time2 > Time1 :
+            dif=Time2-Time1
+            seconds = round(dif.total_seconds())
+            if  seconds > 50 :
                 return True
             else :
                 return False
-                
         except Exception as fs:
             print(fs)
 
@@ -173,6 +174,7 @@ class timE:
     def Get_Ntp_Time(self,NTP_Server,Try_Limit,Sleep_Time):
         tr =0
         while True:
+            time.sleep(0.1)
             try:
                 if tr > Try_Limit:
                     return False,None

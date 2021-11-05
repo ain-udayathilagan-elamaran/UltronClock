@@ -5,6 +5,7 @@ Details={
 "Ntp_TF":"%c",
 "RTC_TF":"%Y-%m-%d %X",
 "RpiSet_TF":"%a %b %d %X %Z %Y",
+"Camera_TF":"%Y-%m-%dT%X",
 "Url_To_Hit":'https://ipinfo.io/ip',
 "DT_File_Name":"datetime.txt",
 "Change_File_Name":"Change_log.json",
