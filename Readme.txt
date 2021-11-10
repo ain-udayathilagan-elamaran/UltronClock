@@ -1,12 +1,12 @@
 TITLE
 
-    UltronClock v1.1
+    UltronClock v1.4
 
 ------------------------------------------------------------------------------
 
 BUILD DATE
 
-    05/10/2021
+    05/11/2021
 
 ------------------------------------------------------------------------------
 
@@ -26,8 +26,7 @@ CONFIG CHANGES	: Please refer to previous builds for any change in configuration
 
 	ADDED
 
-		config.json
-		logging.conf
+	  N/A
 
 	MODIFIED
 
@@ -50,11 +49,11 @@ No.     Type			    Description
 
 
 
-1		Enhancement 		To avoiding 
+1		Enhancement 			To avoiding 
 
 2		Feature 			Including new functionality to Set Time To AIN Camera 
 
-3       Fix                 Fixed Rpi Time Validation
+3       	Fix                 	Fixed Rpi Time Validation
 
 4		Feature 			Including new function to Validate RTC Time
 
@@ -62,8 +61,35 @@ No.     Type			    Description
 
 6		Feature 			Including new functionality to Send Data To Mqtt
 
-------------------------------------------------------------------------------
 
+
+==UltronClock-v1.2==
+
+
+
+1       	Fix                Fixed wrong RTC Time 
+
+
+2	  	Enhancement 		added Camera Boot Time to Set Time To AIN
+
+
+==UltronClock-v1.3==
+
+
+1		Enhancement 		Added EdgeID in Message
+
+
+==UltronClock-v1.4==
+
+
+1		Fix 			Fixed CPU Usage
+
+
+2		Fix 			Fixed UltronClock Inactive
+
+3    	Feature 		Including new function to get camera time for validation
+
+------------------------------------------------------------------------------
 
 
 HOW TO INSTALL: 
@@ -89,3 +115,9 @@ HOW TO INSTALL:
 		
 	* Start the UltronClock.service
 		sudo systemctl  start   UltronClock.service
+			
+4. Ensure this services disabled
+	
+	* Disable the fake-hwclock.service
+		sudo systemctl disable  fake-hwclock.service
+		
