@@ -235,8 +235,18 @@ def Set_Cam_Time(cameraIP,username,password,year,month,day,hour,min,sec):
     
     Cam_State,Cam_uuid=CAM.Get_UID(cameraIP=cameraIP,username=username,password=password)
     if Cam_State:
-        CAM.Set_Mannual_Time(cameraIP=cameraIP,year=year,month=month,day=day,hour=hour,min=min,sec=sec,uID=Cam_uuid)
-        CAM.Set_NTP_Time(cameraIP,uID=Cam_uuid)
+        Mstate,mresponse=CAM.Set_Mannual_Time(cameraIP=cameraIP,year=year,month=month,day=day,hour=hour,min=min,sec=sec,uID=Cam_uuid)
+        if Mstate:
+            logger.info("Set manual time for camera {}".format(str(cameraIP)))
+        else:
+            logger.error("Error ON Set manual time for camera {}".format(str(cameraIP)))
+            logger.error(str(mresponse))
+        Nstate,Nresponse=CAM.Set_NTP_Time(cameraIP,uID=Cam_uuid)
+        if Nstate:
+            logger.info("Set NTP time for camera {}".format(str(cameraIP)))
+        else:
+            logger.error("Error ON Set NTP time for camera {}".format(str(cameraIP)))
+            logger.error(str(Nresponse))
     else :
         logger.info("Can't Access Cam : "+str(cameraIP))
 
