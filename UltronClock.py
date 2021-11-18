@@ -55,7 +55,6 @@ logger = logging.getLogger()
 
 def Main():
     try :
-            
         ConfigData["AparCamera"]
         global FlagA
         if Capability.Check_Internet(Url_To_Hit):
@@ -235,18 +234,8 @@ def Set_Cam_Time(cameraIP,username,password,year,month,day,hour,min,sec):
     
     Cam_State,Cam_uuid=CAM.Get_UID(cameraIP=cameraIP,username=username,password=password)
     if Cam_State:
-        Mstate,mresponse=CAM.Set_Mannual_Time(cameraIP=cameraIP,year=year,month=month,day=day,hour=hour,min=min,sec=sec,uID=Cam_uuid)
-        if Mstate:
-            logger.info("Set manual time for camera {}".format(str(cameraIP)))
-        else:
-            logger.error("Error ON Set manual time for camera {}".format(str(cameraIP)))
-            logger.error(str(mresponse))
-        Nstate,Nresponse=CAM.Set_NTP_Time(cameraIP,uID=Cam_uuid)
-        if Nstate:
-            logger.info("Set NTP time for camera {}".format(str(cameraIP)))
-        else:
-            logger.error("Error ON Set NTP time for camera {}".format(str(cameraIP)))
-            logger.error(str(Nresponse))
+        CAM.Set_Mannual_Time(cameraIP=cameraIP,year=year,month=month,day=day,hour=hour,min=min,sec=sec,uID=Cam_uuid)
+        CAM.Set_NTP_Time(cameraIP,uID=Cam_uuid)
     else :
         logger.info("Can't Access Cam : "+str(cameraIP))
 
@@ -262,20 +251,22 @@ def After_Set(Ntp_t,Ntp_TF,RTC_State):
 def Internet_came_After(tim1): # need to do 
     global FlagA
     while True:
-        time.sleep(tim1)
-        if FlagA == 2: 
-            if Capability.Check_Internet_After_Flag(Url_To_Hit,30):
-                NtP_State,Ntp_t=TimeStonE.Get_Ntp_Time(NTP_Server,4,2)
-                logger.info(str(NtP_State))
-                logger.info(str(Ntp_t))
-                EdgeID=Capability.Get_Edge_Id()
-                T2_Checker(Ntp_t,EdgeID)
-                RTC_State,RTC_Time=TimeStonE.ReadHwClockTime()
-                After_Set(Ntp_t,Ntp_TF,RTC_State)
-                #
-                FlagA=0
-                # break
-
+        try :
+            if FlagA == 2: 
+                time.sleep(tim1)
+                if Capability.Check_Internet_After_Flag(Url_To_Hit,30):
+                    NtP_State,Ntp_t=TimeStonE.Get_Ntp_Time(NTP_Server,4,2)
+                    logger.info(str(NtP_State))
+                    logger.info(str(Ntp_t))
+                    EdgeID=Capability.Get_Edge_Id()
+                    T2_Checker(Ntp_t,EdgeID)
+                    RTC_State,RTC_Time=TimeStonE.ReadHwClockTime()
+                    After_Set(Ntp_t,Ntp_TF,RTC_State)
+                    #
+                    FlagA=0
+                    # break
+        except Exception as d:
+            logger.error(str(d))
 def Date_Time_Update(Time_To_update): 
     while True :
         time.sleep(Time_To_update)
@@ -285,32 +276,42 @@ def Date_Time_Update(Time_To_update):
             if TimeState:
                 FileHandler.write_on_file(AddedTime,DT_File_Name,"w")
             else:
+                logger.error("can't update time")
                 logger.error(str(AddedTime))
                 if Capability.Check_Internet_After_Flag(Url_To_Hit,10):
                     NtP_State,Ntp_t=TimeStonE.Get_Ntp_Time(NTP_Server,14,2)
-                    if NtP_State:
-                        FileHandler.write_on_file(Ntp_t,DT_File_Name,"w")
+                    FileHandler.write_on_file(Ntp_t,DT_File_Name,"w")
+                else:
+                    logger.error("Can't Get NTP T0ime")
         else:
-            logger.error(str(File_t))
             if Capability.Check_Internet_After_Flag(Url_To_Hit,10):
                 NtP_State,Ntp_t=TimeStonE.Get_Ntp_Time(NTP_Server,14,2)
                 if NtP_State:
                     FileHandler.write_on_file(Ntp_t,DT_File_Name,"w")
+                else:
+                    logger.error("Can't Get NTP T0ime")
 
 if __name__ == '__main__':
     try :
-        Current_version = "1.4"
+        Current_version = "1.5"
         program='''
         Program name        : UltronClock
         Author              : Udayathilagan
         Date created        : 21/07/2021
-        Date last modified  : 05/11/2021    
+        Date last modified  : 25/10/2021    
         Python Version      : 3.9.1
         Program Version     : {}        
+
         Email address       : udayathilagan.elamaran@aparinnosys.com'''.format(Current_version)
         logger.info(program)
-        fl = open('Config.json',)
-        ConfigData = json.load(fl)
+        Orgstate,ConfigData,OrgConfigStatus=FileHandleR.Config_Checker_Retrive(File_Name='Org_Config.json',permission='r',Backup_File_Name='Backup_Config.json')
+        logger.info("Orginal Config state : "+str(Orgstate))
+        logger.info("Orginal Config  Status : "+OrgConfigStatus)
+        data="Config file is available"
+        if OrgConfigStatus == data  :
+            Bakstate,BakConfigData,BakConfigStatus=FileHandleR.Config_Checker_Retrive(File_Name='Backup_Config.json',permission='r',Backup_File_Name='Org_Config.json')
+            logger.info("BackUp Config state   : "+str(Bakstate))
+            logger.info("BackUp Config  Status : "+BakConfigStatus)
         Main()
         t1=threading.Thread(target=Internet_came_After,args=(ConfigData["InternetCheckInterval"],))
         t1.start()

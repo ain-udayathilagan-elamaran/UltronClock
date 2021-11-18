@@ -1,7 +1,8 @@
 {
-    "T1": "Tue Oct  5 19:17:00 2021",
+    "T1": "Mon Nov 15 15:21:53 2021",
     "T2": "",
-    "RTC_State": true,
-    "RTC_Time": "2021-10-05 19:17:00",
-    "Rpi_Time": "Tue  5 Oct 19:16:59 IST 2021"
+    "RTC_State": false,
+    "RTC_Time": "NA",
+    "Rpi_Time": "Thu 14 Feb 15:42:05 IST 2019",
+    "Camera_Time": "2021-11-17T13:09:30"
 }
