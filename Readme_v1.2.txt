@@ -1,6 +1,6 @@
 TITLE
 
-    UltronClock v1.1
+    UltronClock v1.2
 
 ------------------------------------------------------------------------------
 
@@ -26,12 +26,11 @@ CONFIG CHANGES	: Please refer to previous builds for any change in configuration
 
 	ADDED
 
-		config.json
-		logging.conf
+		N/A
 
 	MODIFIED
 
-        N/A
+        Added CameraBootTime in config.json
 
 	DELETED
 
@@ -62,6 +61,16 @@ No.     Type			    Description
 
 6		Feature 			Including new functionality to Send Data To Mqtt
 
+
+
+==UltronClock-v1.2==
+
+
+
+1       Fix                 Fixed wrong RTC Time 
+
+
+2		Enhancement 		added Camera Boot Time to Set Time To AIN
 ------------------------------------------------------------------------------
 
 
