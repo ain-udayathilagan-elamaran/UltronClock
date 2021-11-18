@@ -49,17 +49,17 @@ No.     Type			    Description
 
 
 
-1		Enhancement				To avoiding 
-						
-2		Feature 				Including new functionality to Set Time To AIN Camera 
-						
-3		Fix        				Fixed Rpi Time Validation
-						
-4		Feature 				Including new function to Validate RTC Time
-						
-5		Feature 				Including new functionality to Set RTC Time
-						
-6		Feature 				Including new functionality to Send Data To Mqtt
+1		Enhancement 			To avoiding 
+
+2		Feature 			Including new functionality to Set Time To AIN Camera 
+
+3       	Fix                 	Fixed Rpi Time Validation
+
+4		Feature 			Including new function to Validate RTC Time
+
+5		Feature 			Including new functionality to Set RTC Time
+
+6		Feature 			Including new functionality to Send Data To Mqtt
 
 
 
@@ -67,29 +67,28 @@ No.     Type			    Description
 
 
 
-1		Fix                		Fixed wrong RTC Time 
-			
-			
-2		Enhancement 			added Camera Boot Time to Set Time To AIN
-	
+1       	Fix                Fixed wrong RTC Time 
+
+
+2	  	Enhancement 		added Camera Boot Time to Set Time To AIN
+
 
 ==UltronClock-v1.3==
 
 
-1		Enhancement 			Added EdgeID in Message
+1		Enhancement 		Added EdgeID in Message
 
 
 ==UltronClock-v1.4==
 
 
-1		Fix 					Fixed CPU Usage
-		
-		
-2		Fix 					Fixed UltronClock Inactive
-		
-		
-3    	Feature 				Including new function to get camera time for validation
-		
+1		Fix 			Fixed CPU Usage
+
+
+2		Fix 			Fixed UltronClock Inactive
+
+3    	Feature 		Including new function to get camera time for validation
+
 ------------------------------------------------------------------------------
 
 
