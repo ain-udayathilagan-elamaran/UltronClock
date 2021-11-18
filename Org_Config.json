@@ -1,8 +1,0 @@
-{
-    "TimeUpdateInterval":61,
-    "InternetCheckInterval":15,
-    "AparCamera":true,
-    "CameraIP":[205,206,207,208],
-    "CameraBootTime":64
-
-}
