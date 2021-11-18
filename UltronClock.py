@@ -288,14 +288,12 @@ def Date_Time_Update(Time_To_update):
                 logger.error(str(AddedTime))
                 if Capability.Check_Internet_After_Flag(Url_To_Hit,10):
                     NtP_State,Ntp_t=TimeStonE.Get_Ntp_Time(NTP_Server,14,2)
-                    if NtP_State:
-                        FileHandler.write_on_file(Ntp_t,DT_File_Name,"w")
+                    FileHandler.write_on_file(Ntp_t,DT_File_Name,"w")
+                
         else:
-            logger.error(str(File_t))
             if Capability.Check_Internet_After_Flag(Url_To_Hit,10):
                 NtP_State,Ntp_t=TimeStonE.Get_Ntp_Time(NTP_Server,14,2)
-                if NtP_State:
-                    FileHandler.write_on_file(Ntp_t,DT_File_Name,"w")
+                FileHandler.write_on_file(Ntp_t,DT_File_Name,"w")
 
 if __name__ == '__main__':
     try :
