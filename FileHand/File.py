@@ -67,3 +67,42 @@ class FileHandleR:
         except Exception as d:
             print(d)
             return False
+        
+    def Update_Config(self,File_Name,Backup_File_Name):
+        with open(Backup_File_Name, "r") as fl:
+            f = open(File_Name,"w")
+            f.write(fl.read())
+            f.close()
+    
+    def Config_Checker_Retrive(File_Name,permission,Backup_File_Name):
+        try :
+            if not os.path.exists(File_Name):#if file not available
+                data= ("File Not found ")
+                with open(Backup_File_Name, "r") as fl:
+                    f = open(File_Name,"w")
+                    f.write(fl.read())
+                    f.close()
+                # Update_Config(File_Name,Backup_File_Name)
+                fl = open(File_Name,permission)
+                ConfigData = json.load(fl)  
+                return True,ConfigData,data
+
+            elif len(open(File_Name).read()) == 0 :#if file available and emty 
+                data=("File is empty bro")
+                with open(Backup_File_Name, "r") as fl:
+                    f = open(File_Name,"w")
+                    f.write(fl.read())
+                    f.close()
+                fl = open(File_Name,permission)
+                ConfigData = json.load(fl)  
+                return True,ConfigData,data
+
+            else :
+                data="Config file is available"
+                fl = open(File_Name,permission)
+                ConfigData = json.load(fl)  
+                return True,ConfigData,data
+                # Update_Config(File_Name,Backup_File_Name)
+        except Exception as df :
+            data=""
+            return False,df,data

@@ -235,8 +235,18 @@ def Set_Cam_Time(cameraIP,username,password,year,month,day,hour,min,sec):
     
     Cam_State,Cam_uuid=CAM.Get_UID(cameraIP=cameraIP,username=username,password=password)
     if Cam_State:
-        CAM.Set_Mannual_Time(cameraIP=cameraIP,year=year,month=month,day=day,hour=hour,min=min,sec=sec,uID=Cam_uuid)
-        CAM.Set_NTP_Time(cameraIP,uID=Cam_uuid)
+        Mstate,mresponse=CAM.Set_Mannual_Time(cameraIP=cameraIP,year=year,month=month,day=day,hour=hour,min=min,sec=sec,uID=Cam_uuid)
+        if Mstate:
+            logger.info("Set manual time for camera {}".format(str(cameraIP)))
+        else:
+            logger.error("Error ON Set manual time for camera {}".format(str(cameraIP)))
+            logger.error(str(mresponse))
+        Nstate,Nresponse=CAM.Set_NTP_Time(cameraIP,uID=Cam_uuid)
+        if Nstate:
+            logger.info("Set NTP time for camera {}".format(str(cameraIP)))
+        else:
+            logger.error("Error ON Set NTP time for camera {}".format(str(cameraIP)))
+            logger.error(str(Nresponse))
     else :
         logger.info("Can't Access Cam : "+str(cameraIP))
 
@@ -278,27 +288,35 @@ def Date_Time_Update(Time_To_update):
                 logger.error(str(AddedTime))
                 if Capability.Check_Internet_After_Flag(Url_To_Hit,10):
                     NtP_State,Ntp_t=TimeStonE.Get_Ntp_Time(NTP_Server,14,2)
-                    FileHandler.write_on_file(Ntp_t,DT_File_Name,"w")
+                    if NtP_State:
+                        FileHandler.write_on_file(Ntp_t,DT_File_Name,"w")
                 
         else:
             if Capability.Check_Internet_After_Flag(Url_To_Hit,10):
                 NtP_State,Ntp_t=TimeStonE.Get_Ntp_Time(NTP_Server,14,2)
-                FileHandler.write_on_file(Ntp_t,DT_File_Name,"w")
+                if NtP_State:
+                    FileHandler.write_on_file(Ntp_t,DT_File_Name,"w")
 
 if __name__ == '__main__':
     try :
-        Current_version = "1.4"
+        Current_version = "1.5"
         program='''
         Program name        : UltronClock
         Author              : Udayathilagan
         Date created        : 21/07/2021
-        Date last modified  : 05/11/2021    
+        Date last modified  : 18/11/2021    
         Python Version      : 3.9.1
         Program Version     : {}        
         Email address       : udayathilagan.elamaran@aparinnosys.com'''.format(Current_version)
         logger.info(program)
-        fl = open('Config.json',)
-        ConfigData = json.load(fl)
+        Orgstate,ConfigData,OrgConfigStatus=FileHandleR.Config_Checker_Retrive(File_Name='Org_Config.json',permission='r',Backup_File_Name='Backup_Config.json')
+        logger.info("Orginal Config state : "+str(Orgstate))
+        logger.info("Orginal Config  Status : "+OrgConfigStatus)
+        data="Config file is available"
+        if OrgConfigStatus == data  :
+            Bakstate,BakConfigData,BakConfigStatus=FileHandleR.Config_Checker_Retrive(File_Name='Backup_Config.json',permission='r',Backup_File_Name='Org_Config.json')
+            logger.info("BackUp Config state   : "+str(Bakstate))
+            logger.info("BackUp Config  Status : "+BakConfigStatus)
         Main()
         t1=threading.Thread(target=Internet_came_After,args=(ConfigData["InternetCheckInterval"],))
         t1.start()

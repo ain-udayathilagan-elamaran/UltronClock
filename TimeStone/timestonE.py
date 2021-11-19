@@ -14,7 +14,8 @@ class timE:
         current_Time=df.strptime(Ntp_time,Ntp_TF)
         actual_From_Time=current_Time - Duration
         # Change_log_Creater(Duration=Duration, From_Time=From_Time,To_time=To_time,actual_From_Time=actual_From_Time,Ntp_time=Ntp_time)
-        msg='{{"Edge_Id":"{}","Duration":"{}","Time_Was_Wrong_From":"{}","Time_Was_Wrong_To":"{}","Actual_Date_time_was_From":"{}","Actual_Date_time_was_Till":"{}","RTC_State":"{}","RTC_Time":"{}","Rpi_Time":"{}","Camera_Time":{}}}'.format(EdgeId,Duration,From_Time,To_time,actual_From_Time,Ntp_time,RTC_State,RTC_Time,Rpi_Time,Camera_Time)
+        # msg='{{"Edge_Id":"{}","Duration":"{}","Time_Was_Wrong_From":"{}","Time_Was_Wrong_To":"{}","Actual_Date_time_was_From":"{}","Actual_Date_time_was_Till":"{}","RTC_State":"{}","RTC_Time":"{}","Rpi_Time":"{}","Camera_Time":{}}}'.format(EdgeId,Duration,From_Time,To_time,actual_From_Time,Ntp_time,RTC_State,RTC_Time,Rpi_Time,Camera_Time)
+        msg='{{"Edge_Id":"{}","Duration":"{}","Time_Was_Wrong_From":"{}","Time_Was_Wrong_To":"{}","Actual_Date_time_was_From":"{}","Actual_Date_time_was_Till":"{}","RTC_State":"{}","RTC_Time":"{}","Rpi_Time":"{}","Camera_Time":"{}"}}'.format(EdgeId,Duration,From_Time,To_time,actual_From_Time,Ntp_time,RTC_State,RTC_Time,Rpi_Time,Camera_Time)
         return msg
     def RpiSetFormatChanger(self,InTime,INFormat,Zone): 
         try :    
