@@ -21,6 +21,7 @@ Ntp_TF=Details["Ntp_TF"]     # Thu Sep 30 12:21:32 2021
 RTC_TF=Details["RTC_TF"] # 2021-09-29 21:20:54
 RpiSet_TF=Details["RpiSet_TF"] # Mon Aug  12 20:14:11 UTC 2014
 Camera_TF=Details["Camera_TF"] # 2021-10-25T16:44:39
+Heart_Beat_TF=Details["Heart_Beat_TF"]#"%d-%m-%Y %H-%M-%S"
 Url_To_Hit=Details["Url_To_Hit"] 
 
 DT_File_Name=Details["DT_File_Name"] 
@@ -37,12 +38,16 @@ password_mqtt=Details["password_mqtt"]
 mqtt_broker=Details["mqtt_broker"]
 mqtt_port=Details["mqtt_port"]
 Publish_Topic=Details["Publish_Topic"]
+HeartBeat_Topic_Suffix=Details["HeartBeat_Topic_Suffix"]
+Data_Topic_Suffix=Details["Data_Topic_Suffix"]
+
+
 
 #Class calling
 TimeStonE=timE()
 FileHandler=FileHandleR(Main_Location)
 CAM=cameraApi(cameraIPSeries=cameraIPSeries)
-MqTT=mqtt_mod(username_mqtt,password_mqtt,mqtt_broker,mqtt_port,Publish_Topic)
+MqTT=mqtt_mod(username_mqtt,password_mqtt,mqtt_broker,mqtt_port,Publish_Topic,HeartBeat_Topic_Suffix,Data_Topic_Suffix)
 
 
 
@@ -189,38 +194,6 @@ def T2_Checker(Ntp_time,EdgeID):
     except Exception as d:
         logger.error(d)
 
-# def store_loc(x):
-#     try:
-#         data=json.load(open("data.json"))
-#         data['storage'].append(x)
-#         with open('DataToSent.json', 'w') as outfile:
-#             json.dump(data, outfile,indent=2)
-#         outfile.close()
-#     except Exception as e:
-#         logging.error(e)
-
-
-# def forward_del(EdgeID):
-#     while True:
-#         try:
-#             sn=json.load(open("DataToSent.json"))
-#             if (len(sn["storage"])) != 0:    
-#                 if Capability.Check_Internet(Url_To_Hit):
-#                     logger.info("Internet is Here")
-#                     k=0    
-#                     for i in sn["storage"]:
-#                         MqTT_State,client=MqTT.MQTT_Connect()
-#                         if MqTT_State:
-#                             MqTT.Publish_Data(client,EdgeID,Message=i)
-#                             del sn["storage"][k] 
-#                             k=k+1
-#                     with open('data.json', 'w') as outfile:
-#                         json.dump(sn, outfile,indent=2)
-#                         outfile.close()
-#         except Exception as ip:
-#             logging.error(ip)
-
-
 
 def Read_Cam_Time(cameraIP,username,password):
     Cam_State,Cam_uuid=CAM.Get_UID(cameraIP=cameraIP,username=username,password=password)
@@ -279,6 +252,15 @@ def Internet_came_After(tim1): # need to do
 def Date_Time_Update(Time_To_update): 
     while True :
         time.sleep(Time_To_update)
+        ReadRpiTime=TimeStonE.ReadRpiTime()
+        EdgeID=Capability.Get_Edge_Id()
+        HB_Time=TimeStonE.TimeFormatChanger(InTime=ReadRpiTime,INFormat=Rpi_TF,OutTimeFormat=Heart_Beat_TF)
+        HB='{{"STATUS":"{}","VERSION":"{}","{}"}}'.format("Online",Current_version,HB_Time)
+        MqTT_State,client=MqTT.MQTT_Connect()
+        if MqTT_State:
+            MqTT.Publish_HeartBeat(client=client,EdgeId=EdgeID,Message=str(HB))
+        else :
+            logger.info("MqTT_State is :"+str(MqTT_State))
         File_State,File_t=FileHandler.read_from_file(DT_File_Name,"r")
         if File_State:
             TimeState,AddedTime=TimeStonE.AddSeconds(File_t,Ntp_TF,Time_To_update)
@@ -304,7 +286,7 @@ if __name__ == '__main__':
         Program name        : UltronClock
         Author              : Udayathilagan
         Date created        : 21/07/2021
-        Date last modified  : 18/11/2021    
+        Date last modified  : 27/12/2021    
         Python Version      : 3.9.1
         Program Version     : {}        
         Email address       : udayathilagan.elamaran@aparinnosys.com'''.format(Current_version)
@@ -324,6 +306,7 @@ if __name__ == '__main__':
         t2.start()
     except Exception as ds:
         logger.error(ds)
+
 
 
 

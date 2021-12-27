@@ -6,7 +6,9 @@ Details={
 "RTC_TF":"%Y-%m-%d %X",
 "RpiSet_TF":"%a %b %d %X %Z %Y",
 "Camera_TF":"%Y-%m-%dT%X",
-"Url_To_Hit":'https://ipinfo.io/ip',
+"Heart_Beat_TF":"%d-%m-%Y %H-%M-%S",
+"Url_To_Hit_OLD":'https://ipinfo.io/ip',
+"Url_To_Hit":"https://www.google.com",
 "DT_File_Name":"datetime.txt",
 "Change_File_Name":"Change_log.json",
 "NTP_Server":'Asia.pool.ntp.org',
@@ -14,10 +16,15 @@ Details={
 "password":"123456",
 "CameraIP":[205,206,207,208],
 "cameraIPSeries":"http://192.168.1.",
-"Main_Location":"/home/pi/UltronClock",
-"username_mqtt":"mqtt_innformer",
-"password_mqtt":"7WDk9Xi7ICbVzDIAo71F",
-"mqtt_broker":"mqtt.innoculate.in",
+"Main_Location":"/home/pi/edge-controller/aiultron",
+"username_mqtt":"innv3-ncr-cub",
+"password_mqtt":"$t^28j9f9up3!YG%",
+"mqtt_broker":"ncr.cub.mqtt.innoqlate.com",
 "mqtt_port":1883,
-"Publish_Topic":"AI/MAA/UT/CLOCK/"
+"Publish_Topic":"AI/NCR/CUB/UT/",
+"HeartBeat_Topic_Suffix":"/STATUS",
+"Data_Topic_Suffix":"/DATA"
+
+
+
 }

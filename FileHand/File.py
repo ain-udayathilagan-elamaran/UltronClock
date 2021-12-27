@@ -7,20 +7,31 @@ class FileHandleR:
         
     def read_from_file(self,FileName,permission):
         try:   
-            f = open(self.Main_path+FileName, permission)
-            kc=f.read()
-            f.close()
-            return True,kc.strip()
+            with open(self.Main_path+FileName, permission) as outfile:
+                kc=outfile.read()
+                return True,kc.strip()
+        except Exception as kc:
+            return False,kc
+
+    def Read_Json(self,Path,FileName,permission):
+        try:   
+            with open(Path+FileName, permission) as outfile:
+                kc=outfile.read()
+                data = json.loads(kc)
+                PASSWORD=data["PASSWORD"]
+                HOST=data["HOST"]
+                TOPICPREFIX=data["TOPICPREFIX"]
+                USERNAME=data["USERNAME"]
+                return True,HOST,USERNAME,PASSWORD,TOPICPREFIX
         except Exception as kc:
             return False,kc
 
 
+
     def write_on_file(self,data_To_Write,FileName,permission):
         try:
-            f = open(self.Main_path+FileName,permission)
-            # print(self.Main_path+FileName)
-            f.write(data_To_Write)
-            f.close()
+            with open(self.Main_path+FileName, permission) as outfile:
+                outfile.write(data_To_Write)
             return True
         except Exception as sd:
             return False
@@ -37,8 +48,6 @@ class FileHandleR:
             "RTC_Time":RTC_Time,
             "Rpi_Time":Rpi_Time,
             "Camera_Time":Camera_Time
-            
-            
             }
             json_ob = json.dumps(change_log, indent = 4)
             with open(FileName, permission) as outfile:
@@ -51,11 +60,9 @@ class FileHandleR:
             
     def T1_Reader(self,FileName,permission):
         try:
-            # print(To_Find)
-            # fl=FileHandler.read_from_file(FileName='Change_log.json',permission='r')
-            fl = open(FileName,permission)
-            data = json.load(fl)
-            fl.close()
+            with open(FileName, permission) as outfile:
+                kc=outfile.read()
+                data = json.loads(kc)
             # To_time=T2
             T1=data["T1"]
             RTC_State=data["RTC_State"]
@@ -65,44 +72,43 @@ class FileHandleR:
             
             return T1,RTC_State,RTC_Time,Rpi_Time,Camera_Time
         except Exception as d:
-            print(d)
+            print(d) 
             return False
         
-    def Update_Config(self,File_Name,Backup_File_Name):
+    def Update_Config(self,File_Name,Backup_File_Name):#Not Used
         with open(Backup_File_Name, "r") as fl:
-            f = open(File_Name,"w")
-            f.write(fl.read())
-            f.close()
+            with open(File_Name, "w") as f:
+                f.write(fl.read())
+            # f.close()
     
     def Config_Checker_Retrive(File_Name,permission,Backup_File_Name):
         try :
             if not os.path.exists(File_Name):#if file not available
                 data= ("File Not found ")
                 with open(Backup_File_Name, "r") as fl:
-                    f = open(File_Name,"w")
-                    f.write(fl.read())
-                    f.close()
-                # Update_Config(File_Name,Backup_File_Name)
-                fl = open(File_Name,permission)
-                ConfigData = json.load(fl)  
-                return True,ConfigData,data
-
+                    with open(File_Name, "w") as f:
+                        f.write(fl.read())
+                with open(File_Name, permission) as fl:
+                    ConfigData = json.loads(fl.read())  
+                    return True,ConfigData,data
+            # with open(DT_File_Name,'r') as hh:
+            #     k=len(hh.read())
+            #     print(k)
+                
             elif len(open(File_Name).read()) == 0 :#if file available and emty 
-                data=("File is empty bro")
+                data=("File is empty")
                 with open(Backup_File_Name, "r") as fl:
-                    f = open(File_Name,"w")
-                    f.write(fl.read())
-                    f.close()
-                fl = open(File_Name,permission)
-                ConfigData = json.load(fl)  
-                return True,ConfigData,data
-
+                    with open(File_Name, "w") as f:
+                        f.write(fl.read())
+                with open(File_Name, permission) as fl:
+                    ConfigData = json.loads(fl.read())  
+                    return True,ConfigData,data
             else :
                 data="Config file is available"
-                fl = open(File_Name,permission)
-                ConfigData = json.load(fl)  
-                return True,ConfigData,data
-                # Update_Config(File_Name,Backup_File_Name)
+                with open(File_Name, permission) as fl:
+                    ConfigData = json.loads(fl.read())  
+                    return True,ConfigData,data
         except Exception as df :
+            print(df)
             data=""
             return False,df,data

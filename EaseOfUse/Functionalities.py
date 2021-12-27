@@ -19,11 +19,12 @@ class Capability:
             return False
 
     def Get_Edge_Id():
-        try:    
-            res = os.popen('cat /home/pi/edge-controller/config/edge-controller.json').read()
-            kl=json.loads(res)
-            edge=kl["VBOXID"]
-            return edge
+        try:  
+            with open('/home/pi/edge-controller/config/edge-controller.json', 'r') as res   :  
+            #res = os.popen('cat /home/pi/edge-controller/config/edge-controller.json').read()
+                kl=json.loads(res.read())
+                edge=kl["VBOXID"]
+                return edge
         except Exception as d:
             return d
 
