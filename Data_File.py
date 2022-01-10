@@ -1,7 +1,7 @@
 
 
 Details={
-"Rpi_TF":"%a %d %b %X %Z %Y",
+"Rpi_TF":"%a %b %d %X %Z %Y",
 "Ntp_TF":"%c",
 "RTC_TF":"%Y-%m-%d %X",
 "RpiSet_TF":"%a %b %d %X %Z %Y",
@@ -21,7 +21,7 @@ Details={
 "password_mqtt":"$t^28j9f9up3!YG%",
 "mqtt_broker":"ncr.cub.mqtt.innoqlate.com",
 "mqtt_port":1883,
-"Publish_Topic":"AI/NCR/CUB/UT/",
+"Publish_Topic":"AI/NCR/CUB/UC/",
 "HeartBeat_Topic_Suffix":"/STATUS",
 "Data_Topic_Suffix":"/DATA"
 
