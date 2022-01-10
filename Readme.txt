@@ -95,14 +95,19 @@ No.     Type			    Description
 
 1		Fix 			Fixed CPU Usage
 
-
 2		Fix 			Fixed UltronClock Inactive
 
 3    	Feature 		Including new function to get camera time for validation
 
 ==UltronClock-v1.5==
 
+1		Enhancement 		Added HeartBeat
 
+2		Enhancement 		Including new function to config file validation
+
+==UltronClock-v1.6==
+
+1		Enhancement 		Changed MQTT Topic
 
 ------------------------------------------------------------------------------
 
