@@ -255,7 +255,7 @@ def Date_Time_Update(Time_To_update):
         ReadRpiTime=TimeStonE.ReadRpiTime()
         EdgeID=Capability.Get_Edge_Id()
         HB_Time=TimeStonE.TimeFormatChanger(InTime=ReadRpiTime,INFormat=Rpi_TF,OutTimeFormat=Heart_Beat_TF)
-        HB='{{"STATUS":"{}","VERSION":"{}","{}"}}'.format("Online",Current_version,HB_Time)
+        HB='{{"STATUS":"{}","VERSION":"{}","TIME":"{}"}}'.format("Online",Current_version,HB_Time)
         MqTT_State,client=MqTT.MQTT_Connect()
         if MqTT_State:
             MqTT.Publish_HeartBeat(client=client,EdgeId=EdgeID,Message=str(HB))
@@ -281,12 +281,12 @@ def Date_Time_Update(Time_To_update):
 
 if __name__ == '__main__':
     try :
-        Current_version = "1.5"
+        Current_version = "1.6"
         program='''
         Program name        : UltronClock
         Author              : Udayathilagan
         Date created        : 21/07/2021
-        Date last modified  : 27/12/2021    
+        Date last modified  : 10/01/2022    
         Python Version      : 3.9.1
         Program Version     : {}        
         Email address       : udayathilagan.elamaran@aparinnosys.com'''.format(Current_version)
