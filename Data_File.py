@@ -1,7 +1,7 @@
 
 
 Details={
-"Rpi_TF":"%a %b %d %X %Z %Y",
+"Rpi_TF":"%a %d %b %X %Z %Y",
 "Ntp_TF":"%c",
 "RTC_TF":"%Y-%m-%d %X",
 "RpiSet_TF":"%a %b %d %X %Z %Y",

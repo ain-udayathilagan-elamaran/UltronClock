@@ -1,12 +1,12 @@
 TITLE
 
-    UltronClock v1.5
+    UltronClock v1.7
 
 ------------------------------------------------------------------------------
 
 BUILD DATE
 
-    27/12/2021
+    12/01/2022
 
 ------------------------------------------------------------------------------
 
@@ -26,12 +26,11 @@ CONFIG CHANGES	: Please refer to previous builds for any change in configuration
 
 	ADDED
 
-		config.json
-		logging.conf
+        N/A
 
 	MODIFIED
 
-        N/A
+        config.json
 
 	DELETED
 
@@ -48,23 +47,7 @@ No.     Type			    Description
 
 ==UltronClock-v1.1==
 
-
-
-<<<<<<< HEAD
 1		Enhancement 		To avoiding 
-=======
-1		Enhancement 			To avoiding 
-
-2		Feature 			Including new functionality to Set Time To AIN Camera 
-
-3       	Fix                 	Fixed Rpi Time Validation
-
-4		Feature 			Including new function to Validate RTC Time
-
-5		Feature 			Including new functionality to Set RTC Time
-
-6		Feature 			Including new functionality to Send Data To Mqtt
->>>>>>> parent of 1199128 ( readme)
 
 2		Feature 			Including new functionality to Set Time To AIN Camera 
 
@@ -76,9 +59,9 @@ No.     Type			    Description
 
 6		Feature 			Including new functionality to Send Data To Mqtt
 
-<<<<<<< HEAD
-=======
-1       	Fix                Fixed wrong RTC Time 
+==UltronClock-v1.2==
+
+1       Fix            		Fixed wrong RTC Time 
 
 
 2	  	Enhancement 		added Camera Boot Time to Set Time To AIN
@@ -92,12 +75,11 @@ No.     Type			    Description
 
 ==UltronClock-v1.4==
 
+1		Fix 				Fixed CPU Usage
 
-1		Fix 			Fixed CPU Usage
+2		Fix 				Fixed UltronClock Inactive
 
-2		Fix 			Fixed UltronClock Inactive
-
-3    	Feature 		Including new function to get camera time for validation
+3    	Feature 			Including new function to get camera time for validation
 
 ==UltronClock-v1.5==
 
@@ -108,6 +90,12 @@ No.     Type			    Description
 ==UltronClock-v1.6==
 
 1		Enhancement 		Changed MQTT Topic
+
+==UltronClock-v1.7==
+
+1		Enhancement 		Added New thread for HeartBeat
+
+2		Fix 				Fixed UltronClock HeartBeat time issue
 
 ------------------------------------------------------------------------------
 

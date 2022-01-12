@@ -249,7 +249,7 @@ def Internet_came_After(tim1): # need to do
                 FlagA=0
                 # break
 
-def Date_Time_Update(Time_To_update): 
+def HB_Time_Update(Time_To_update): 
     while True :
         time.sleep(Time_To_update)
         ReadRpiTime=TimeStonE.ReadRpiTime()
@@ -261,6 +261,10 @@ def Date_Time_Update(Time_To_update):
             MqTT.Publish_HeartBeat(client=client,EdgeId=EdgeID,Message=str(HB))
         else :
             logger.info("MqTT_State is :"+str(MqTT_State))
+
+def Date_Time_Update(Time_To_update): 
+    while True :
+        time.sleep(Time_To_update)
         File_State,File_t=FileHandler.read_from_file(DT_File_Name,"r")
         if File_State:
             TimeState,AddedTime=TimeStonE.AddSeconds(File_t,Ntp_TF,Time_To_update)
@@ -281,12 +285,12 @@ def Date_Time_Update(Time_To_update):
 
 if __name__ == '__main__':
     try :
-        Current_version = "1.6"
+        Current_version = "1.7"
         program='''
         Program name        : UltronClock
         Author              : Udayathilagan
         Date created        : 21/07/2021
-        Date last modified  : 10/01/2022    
+        Date last modified  : 12/01/2022    
         Python Version      : 3.9.1
         Program Version     : {}        
         Email address       : udayathilagan.elamaran@aparinnosys.com'''.format(Current_version)
@@ -304,6 +308,8 @@ if __name__ == '__main__':
         t1.start()
         t2=threading.Thread(target=Date_Time_Update,args=(ConfigData["TimeUpdateInterval"],))
         t2.start()
+        t3=threading.Thread(target=HB_Time_Update,args=(ConfigData["HBTimeUpdateInterval"],))
+        t3.start()
     except Exception as ds:
         logger.error(ds)
 
