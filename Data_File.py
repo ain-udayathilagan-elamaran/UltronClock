@@ -21,9 +21,9 @@ Details={
 "password_mqtt":"$t^28j9f9up3!YG%",
 "mqtt_broker":"ncr.cub.mqtt.innoqlate.com",
 "mqtt_port":1883,
-"Publish_Topic":"AI/NCR/CUB/UC/",
-"HeartBeat_Topic_Suffix":"/STATUS",
-"Data_Topic_Suffix":"/DATA"
+"Publish_Topic":"AI/NCR/CUB/",
+"HeartBeat_Topic_Suffix":"/UC/STATUS",
+"Data_Topic_Suffix":"/UC/DATA"
 
 
 
