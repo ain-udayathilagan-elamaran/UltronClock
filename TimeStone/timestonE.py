@@ -10,12 +10,26 @@ class timE:
     def __init__(self):
         pass
     
-    def Data_Creater(self,EdgeId,Ntp_time,Ntp_TF,Duration,From_Time,To_time,RTC_State,RTC_Time,Rpi_Time,Camera_Time):
+    def Data_Creater(self,EdgeId,Ntp_time,Ntp_TF,Duration,From_Time,From_Time_TF,To_time,To_time_TF,RTC_State,RTC_Time,RTC_Time_TF,Rpi_Time,Rpi_Time_TF,Camera_Time,Camera_Time_TF,Std_Time):
         current_Time=df.strptime(Ntp_time,Ntp_TF)
         actual_From_Time=current_Time - Duration
+        From_Time=self.TimeFormatChanger(From_Time,From_Time_TF,Std_Time)
+        To_time=self.TimeFormatChanger(To_time,To_time_TF,Std_Time)
+        # actual_From_Time=self.TimeFormatChanger(actual_From_Time,Ntp_TF,Std_Time) 
+        Ntp_time=self.TimeFormatChanger(Ntp_time,Ntp_TF,Std_Time)
+        if RTC_Time == "NA":
+            RTC_Time="NA"
+        else:
+            RTC_Time=self.TimeFormatChanger(RTC_Time,RTC_Time_TF,Std_Time)
+        Rpi_Time=self.TimeFormatChanger(Rpi_Time,Rpi_Time_TF,Std_Time)
+        if Camera_Time == "NA":
+            Camera_Time="NA"
+        else:
+            Camera_Time=self.TimeFormatChanger(Camera_Time,Camera_Time_TF,Std_Time)
         # Change_log_Creater(Duration=Duration, From_Time=From_Time,To_time=To_time,actual_From_Time=actual_From_Time,Ntp_time=Ntp_time)
         # msg='{{"Edge_Id":"{}","Duration":"{}","Time_Was_Wrong_From":"{}","Time_Was_Wrong_To":"{}","Actual_Date_time_was_From":"{}","Actual_Date_time_was_Till":"{}","RTC_State":"{}","RTC_Time":"{}","Rpi_Time":"{}","Camera_Time":{}}}'.format(EdgeId,Duration,From_Time,To_time,actual_From_Time,Ntp_time,RTC_State,RTC_Time,Rpi_Time,Camera_Time)
-        msg='{{"Edge_Id":"{}","Duration":"{}","Time_Was_Wrong_From":"{}","Time_Was_Wrong_To":"{}","Actual_Date_time_was_From":"{}","Actual_Date_time_was_Till":"{}","RTC_State":"{}","RTC_Time":"{}","Rpi_Time":"{}","Camera_Time":"{}"}}'.format(EdgeId,Duration,From_Time,To_time,actual_From_Time,Ntp_time,RTC_State,RTC_Time,Rpi_Time,Camera_Time)
+        msg='{{"Edge_Id":"{}","Duration":"{}","Time_Was_Wrong_From":"{}","Time_Was_Wrong_To":"{}","Actual_Date_time_was_From":"{}","Actual_Date_time_was_Till":"{}","RTC_State":"{}","RTC_Time":"{}","Rpi_Time":"{}","Camera_Time":"{}"}}'.format(
+                EdgeId,Duration,From_Time,To_time,actual_From_Time,Ntp_time,RTC_State,RTC_Time,Rpi_Time,Camera_Time)
         return msg
     def RpiSetFormatChanger(self,InTime,INFormat,Zone): 
         try :    
