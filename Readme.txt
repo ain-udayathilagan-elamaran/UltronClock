@@ -1,12 +1,12 @@
 TITLE
 
-    UltronClock v1.7
+    UltronClock v1.8
 
 ------------------------------------------------------------------------------
 
 BUILD DATE
 
-    12/01/2022
+    16/02/2022
 
 ------------------------------------------------------------------------------
 
@@ -96,6 +96,12 @@ No.     Type			    Description
 1		Enhancement 		Added New thread for HeartBeat
 
 2		Fix 				Fixed UltronClock HeartBeat time issue
+
+==UltronClock-v1.8==
+
+1		Enhancement 		Modified Time Format In Data Package
+
+2		Enhancement 		Modified HB and Data Topic 
 
 ------------------------------------------------------------------------------
 
