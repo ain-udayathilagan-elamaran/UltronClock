@@ -182,7 +182,8 @@ def T2_Checker(Ntp_time,EdgeID):
         File_State,File_t=FileHandler.read_from_file(DT_File_Name,"r")
         DuState,Duration=TimeStonE.Time1_Time2_check_Difference(Time1=From_Time,Time1_format=Ntp_TF,Time2=File_t,Time2_format=Ntp_TF)
         EdgeId=Capability.Get_Edge_Id() # added edge id to pub
-        msg=TimeStonE.Data_Creater(EdgeId=EdgeId,Ntp_time=Ntp_time,Ntp_TF=Ntp_TF,Duration=Duration,From_Time=From_Time,To_time=File_t,RTC_State=RTC_State,RTC_Time=RTC_Time,Rpi_Time=Rpi_Time,Camera_Time=Camera_Time)
+        msg=TimeStonE.Data_Creater(EdgeId=EdgeId,Ntp_time=Ntp_time,Ntp_TF=Ntp_TF,Duration=Duration,From_Time=From_Time,From_Time_TF=Ntp_TF,To_time=File_t,To_time_TF=Ntp_TF,RTC_State=RTC_State,RTC_Time=RTC_Time,RTC_Time_TF=RTC_TF,Rpi_Time=Rpi_Time,Rpi_Time_TF=Rpi_TF,Camera_Time=Camera_Time,Camera_Time_TF=Camera_TF,Std_Time=RTC_TF)
+        # msg=TimeStonE.Data_Creater(EdgeId=EdgeId,Ntp_time=Ntp_time,Ntp_TF=Ntp_TF,Duration=Duration,From_Time=From_Time,To_time=File_t,RTC_State=RTC_State,RTC_Time=RTC_Time,Rpi_Time=Rpi_Time,Camera_Time=Camera_Time)
         logger.info("Duration is :"+str(Duration))
         time.sleep(2)
         MqTT_State,client=MqTT.MQTT_Connect()
@@ -254,7 +255,7 @@ def HB_Time_Update(Time_To_update):
         time.sleep(Time_To_update)
         ReadRpiTime=TimeStonE.ReadRpiTime()
         EdgeID=Capability.Get_Edge_Id()
-        HB_Time=TimeStonE.TimeFormatChanger(InTime=ReadRpiTime,INFormat=Rpi_TF,OutTimeFormat=Heart_Beat_TF)
+        HB_Time=TimeStonE.TimeFormatChanger(InTime=ReadRpiTime,INFormat=Rpi_TF,OutTimeFormat=RTC_TF)
         HB='{{"STATUS":"{}","VERSION":"{}","TIME":"{}"}}'.format("Online",Current_version,HB_Time)
         MqTT_State,client=MqTT.MQTT_Connect()
         if MqTT_State:
@@ -285,12 +286,12 @@ def Date_Time_Update(Time_To_update):
 
 if __name__ == '__main__':
     try :
-        Current_version = "1.7"
+        Current_version = "1.8"
         program='''
         Program name        : UltronClock
         Author              : Udayathilagan
         Date created        : 21/07/2021
-        Date last modified  : 12/01/2022    
+        Date last modified  : 16/02/2022    
         Python Version      : 3.9.1
         Program Version     : {}        
         Email address       : udayathilagan.elamaran@aparinnosys.com'''.format(Current_version)
