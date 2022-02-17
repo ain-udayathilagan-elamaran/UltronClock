@@ -189,6 +189,7 @@ def T2_Checker(Ntp_time,EdgeID):
         MqTT_State,client=MqTT.MQTT_Connect()
         if MqTT_State:
             MqTT.Publish_Data(client,EdgeID,Message=msg)
+            MqTT.MQTT_Disconnect(client)
         else :
             logger.info("MqTT_State is :"+str(MqTT_State))            
         logger.info("Message To Sent:"+str(msg))
@@ -260,6 +261,7 @@ def HB_Time_Update(Time_To_update):
         MqTT_State,client=MqTT.MQTT_Connect()
         if MqTT_State:
             MqTT.Publish_HeartBeat(client=client,EdgeId=EdgeID,Message=str(HB))
+            MqTT.MQTT_Disconnect(client)
         else :
             logger.info("MqTT_State is :"+str(MqTT_State))
 
@@ -291,7 +293,7 @@ if __name__ == '__main__':
         Program name        : UltronClock
         Author              : Udayathilagan
         Date created        : 21/07/2021
-        Date last modified  : 16/02/2022    
+        Date last modified  : 17/02/2022    
         Python Version      : 3.9.1
         Program Version     : {}        
         Email address       : udayathilagan.elamaran@aparinnosys.com'''.format(Current_version)

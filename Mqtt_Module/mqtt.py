@@ -24,6 +24,14 @@ class mqtt_mod :
         except Exception as e:
             return False,e
         
+    def MQTT_Disconnect(self,client):
+        try:
+            client.disconnect()
+            return True,None
+        except Exception as e:
+            return False,e
+        
+        
     def Publish_Data(self,client,EdgeId,Message):
         try: 
             client.publish(self.Publish_Topic+EdgeId+self.Data_Topic_Suffix,Message)
