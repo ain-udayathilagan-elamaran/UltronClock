@@ -117,9 +117,9 @@ HOW TO INSTALL:
 
 1. UltronClock,Config.json ,UltronClock.service and logging.conf added, please find included file in package
 
-3. Create a new folder named UltronClock
+3. Create a new folder named aiultron on \home\pi\edge-controller path
 
-2. Upload the UltronClock,Config.json and logging.conf to \home\pi\UltronClock  folder
+2. Upload the UltronClock,Config.json and logging.conf to \home\pi\edge-controller\aiultron  folder
 
 	* Give Execute Permision for the UltronClock file 
 
