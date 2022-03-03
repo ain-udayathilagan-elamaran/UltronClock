@@ -2,9 +2,9 @@
 Description=Ultron Clock
 
 [Service]
-WorkingDirectory=/home/pi/UltronClock
+WorkingDirectory=/home/pi/edge-controller/aiultron
 Environment="TERM=xterm"
-ExecStart=/home/pi/UltronClock/UltronClock
+ExecStart=/home/pi/edge-controller/aiultron/UltronClock
 Restart=on-failure
 
 [Install]
